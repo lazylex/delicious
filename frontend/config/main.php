@@ -43,7 +43,7 @@ return [
             'showScriptName' => false,
 
             'rules' => [
-                'login'=>'site/login',
+               /* 'login'=>'site/login',*/
             ],
         ],
 
