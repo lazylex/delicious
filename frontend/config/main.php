@@ -15,6 +15,7 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
+            'baseUrl' => ''
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -43,7 +44,7 @@ return [
             'showScriptName' => false,
 
             'rules' => [
-               /* 'login'=>'site/login',*/
+                'add'=>'recipe/add',
             ],
         ],
 
