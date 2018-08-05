@@ -9,5 +9,10 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        //необходимо также запустить yii migrate --migrationPath=@yii/rbac/migrations
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'cache'=>'cache'
+        ],
     ],
 ];

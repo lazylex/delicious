@@ -15,7 +15,7 @@ class m180801_052555_create_db_structure extends Migration
         $this->createTable("Category",
             [
                 'category_id' => $this->smallInteger()->unsigned()->notNull(),
-                'parent_id' => 'SMALLINT UNSIGNED',//может ли быть NULL?
+                'parent_id' => $this->smallInteger()->unsigned(),//может ли быть NULL?
                 'name' => $this->string(50)->notNull()->unique(),
                 'url' => $this->string()->notNull(),
                 'PRIMARY KEY(category_id)',
@@ -68,7 +68,9 @@ class m180801_052555_create_db_structure extends Migration
                 'PRIMARY KEY(recipe_id)',
             ]);
 
-        //связываемые для внешних ключей поля должны быть ключами. Если это не так, нужно построить индекс
+        $this->createIndex('idx_unit_id','Ingredient','unit_id');
+        $this->createIndex('idx_category_id','Recipe','category_id');
+        $this->createIndex('idx_holiday_id','Recipe','holiday_id');
 
         $this->addForeignKey(
             'fk_unit_id',
@@ -127,8 +129,41 @@ class m180801_052555_create_db_structure extends Migration
     public function safeDown()
     {
         echo "m180801_052555_create_db_structure cannot be reverted.\n";
+        $this->dropForeignKey(
+            'fk_unit_id',
+            'Ingredient'
+        );
 
-        return false;
+        $this->dropForeignKey(
+            'fk_ingredient_id',
+            'Ingredients'
+        );
+
+        $this->dropForeignKey(
+            'fk_recipe_id',
+            'Ingredients'
+        );
+
+        $this->dropForeignKey(
+            'fk_holiday_id',
+            'Recipe'
+        );
+
+        $this->dropForeignKey(
+            'fk_category_id',
+            'Recipe'
+        );
+
+        $this->dropIndex('idx_unit_id','Ingredient');
+        $this->dropIndex('idx_category_id','Recipe');
+        $this->dropIndex('idx_holiday_id','Recipe');
+
+        $this->dropTable("Category");
+        $this->dropTable("Holidays");
+        $this->dropTable("Unit");
+        $this->dropTable("Ingredient");
+        $this->dropTable("Ingredients");
+        $this->dropTable("Recipe");
     }
 
     /*
