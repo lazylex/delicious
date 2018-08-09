@@ -21,18 +21,18 @@ class SignupForm extends Model
     {
         return [
             ['username', 'trim'],
-            ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['username', 'required', 'message' => 'Необходимо указать логин.'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Пользователь с таким логином уже существует.'],
+            ['username', 'string', 'min' => 2, 'max' => 255, 'tooShort' => 'Логин должен быть не менее двух символов', 'tooLong' => 'Логин должен быть не более 255 символов'],
 
             ['email', 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
-            ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'required', 'message' => 'Необходимо указать почтовый ящик.'],
+            ['email', 'email', 'message' => 'Неправильно указан почтовый ящик.'],
+            ['email', 'string', 'max' => 255, 'message' => 'Адрес почтового ящика не может быть более 255 символов.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Данный почтовый ящик уже используется.'],
 
-            ['password', 'required'],
-            ['password', 'string', 'min' => 6],
+            ['password', 'required', 'message' => 'Необходимо указать пароль.'],
+            ['password', 'string', 'min' => 8, 'tooShort' => 'Пароль должен быть не менее восьми символов'],
         ];
     }
 
