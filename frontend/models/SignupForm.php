@@ -12,7 +12,7 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
-
+    public $password_repeat;
 
     /**
      * {@inheritdoc}
@@ -31,8 +31,9 @@ class SignupForm extends Model
             ['email', 'string', 'max' => 255, 'message' => 'Адрес почтового ящика не может быть более 255 символов.'],
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Данный почтовый ящик уже используется.'],
 
-            ['password', 'required', 'message' => 'Необходимо указать пароль.'],
-            ['password', 'string', 'min' => 8, 'tooShort' => 'Пароль должен быть не менее восьми символов'],
+            [['password','password_repeat'], 'required', 'message' => 'Необходимо указать пароль.'],
+            [['password','password_repeat'], 'string', 'min' => 8, 'tooShort' => 'Пароль должен быть не менее восьми символов'],
+            ['password_repeat', 'compare',  'message'=>'Пароли не совпадают'],// краткая форма записи, где у сравниваемого аттрибута должен быть суффикс _repeat
         ];
     }
 
