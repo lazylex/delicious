@@ -14,7 +14,7 @@ class m180801_052555_create_db_structure extends Migration
     {
         $this->createTable("Category",
             [
-                'category_id' => $this->smallInteger()->unsigned()->notNull(),
+                'category_id' => $this->smallInteger()->unsigned()->notNull()->unique(),
                 'parent_id' => $this->smallInteger()->unsigned(),//может ли быть NULL?
                 'name' => $this->string(50)->notNull()->unique(),
                 'url' => $this->string()->notNull(),
@@ -23,7 +23,7 @@ class m180801_052555_create_db_structure extends Migration
 
         $this->createTable("Holidays",
             [
-                'holiday_id' => $this->smallInteger()->unsigned()->notNull(),
+                'holiday_id' => $this->smallInteger()->unsigned()->notNull()->unique(),
                 'date' => $this->date()->notNull(),
                 'name' => $this->string(50)->notNull()->unique(),
                 'PRIMARY KEY(holiday_id)',
@@ -32,14 +32,14 @@ class m180801_052555_create_db_structure extends Migration
 
         $this->createTable("Unit",
             [
-                'unit_id' => $this->smallInteger()->unsigned()->notNull(),
+                'unit_id' => $this->smallInteger()->unsigned()->notNull()->unique(),
                 'name' => $this->string(30)->notNull(),
                 'PRIMARY KEY(unit_id)',
             ]);
 
         $this->createTable("Ingredient",
             [
-                'ingredient_id' => $this->smallInteger()->unsigned()->notNull(),
+                'ingredient_id' => $this->smallInteger()->unsigned()->notNull()->unique(),
                 'name' => $this->string(30)->notNull(),
                 'calories' => $this->integer(10),
                 'unit_id' => $this->smallInteger()->unsigned()->notNull(),
@@ -48,7 +48,7 @@ class m180801_052555_create_db_structure extends Migration
 
         $this->createTable("Ingredients",
             [
-                'recipe_id' => $this->smallInteger()->unsigned()->notNull(),
+                'recipe_id' => $this->smallInteger()->unsigned()->notNull()->unique(),
                 'ingredient_id' => $this->smallInteger()->unsigned()->notNull(),
                 'count' => $this->integer()->notNull()->defaultValue(1),
                 'PRIMARY KEY(recipe_id, ingredient_id)',
@@ -56,21 +56,40 @@ class m180801_052555_create_db_structure extends Migration
 
         $this->createTable("Recipe",
             [
-                'recipe_id' => $this->smallInteger()->unsigned()->notNull(),
+                'recipe_id' => $this->smallInteger()->unsigned()->notNull()->unique(),
                 'name' => $this->string(),
                 'calories' => $this->integer(),
                 'time' => $this->time(),
                 'holiday_id' => $this->smallInteger()->unsigned(),
-                'author' => $this->smallInteger()->unsigned(),
+                'author' => $this->Integer(),
                 'annotation' => $this->string(),
                 'article' => $this->text()->notNull(),
                 'category_id' => $this->smallInteger()->unsigned()->notNull(),
                 'PRIMARY KEY(recipe_id)',
             ]);
 
+        $this->alterColumn('{{%Category}}', 'category_id', $this->smallInteger()->unsigned()->unsigned().' NOT NULL AUTO_INCREMENT');
+        $this->alterColumn('{{%Holidays}}', 'holiday_id', $this->smallInteger()->unsigned()->unsigned().' NOT NULL AUTO_INCREMENT');
+        $this->alterColumn('{{%Unit}}', 'unit_id', $this->smallInteger()->unsigned()->unsigned().' NOT NULL AUTO_INCREMENT');
+        $this->alterColumn('{{%Ingredient}}', 'ingredient_id', $this->smallInteger()->unsigned().' NOT NULL AUTO_INCREMENT');
+        $this->alterColumn('{{%Recipe}}', 'recipe_id', $this->smallInteger()->unsigned().' NOT NULL AUTO_INCREMENT');
+
+
         $this->createIndex('idx_unit_id','Ingredient','unit_id');
         $this->createIndex('idx_category_id','Recipe','category_id');
         $this->createIndex('idx_holiday_id','Recipe','holiday_id');
+        $this->createIndex('idx_author_id','Recipe','author');
+
+        $this->addForeignKey(
+            'fk_author',
+            'Recipe',
+            'author',
+            'User',
+            'id',
+            'CASCADE',
+            'CASCADE'
+        );
+
 
         $this->addForeignKey(
             'fk_unit_id',
@@ -153,11 +172,14 @@ class m180801_052555_create_db_structure extends Migration
             'fk_category_id',
             'Recipe'
         );
-
+        $this->dropForeignKey(
+            'fk_author',
+            'Recipe'
+        );
         $this->dropIndex('idx_unit_id','Ingredient');
         $this->dropIndex('idx_category_id','Recipe');
         $this->dropIndex('idx_holiday_id','Recipe');
-
+        $this->dropIndex('idx_author_id','Recipe');
         $this->dropTable("Category");
         $this->dropTable("Holidays");
         $this->dropTable("Unit");

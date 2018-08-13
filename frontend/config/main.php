@@ -45,6 +45,7 @@ return [
 
             'rules' => [
                 'add'=>'recipe/add',
+              /*  'admin'=>'/backend/web',*/
             ],
         ],
 
