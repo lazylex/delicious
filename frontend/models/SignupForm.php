@@ -33,7 +33,7 @@ class SignupForm extends Model
 
             [['password','password_repeat'], 'required', 'message' => 'Необходимо указать пароль.'],
             [['password','password_repeat'], 'string', 'min' => 8, 'tooShort' => 'Пароль должен быть не менее восьми символов'],
-            ['password_repeat', 'compare',  'message'=>'Пароли не совпадают'],// краткая форма записи, где у сравниваемого аттрибута должен быть суффикс _repeat
+            ['password_repeat', 'compare', 'compareAttribute' => 'password',  'message'=>'Пароли не совпадают'],
         ];
     }
 
