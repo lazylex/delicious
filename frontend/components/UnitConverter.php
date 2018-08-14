@@ -14,7 +14,8 @@ class UnitConverter extends Component
 {
     public function toString($unit, $count = 1, $returnWithCount = true)
     {
-
+        if ($count <= 0)
+            return '';
         $count_result = $returnWithCount ? $count . ' ' : '';
 
         if (!is_integer($count))
@@ -22,23 +23,36 @@ class UnitConverter extends Component
         $isDec = (floor($count / 10) % 10) == 1 ? true : false;
         $lastDigit = $count % 10;
 
+        switch ($unit) {
+            case 'кг':
+                $prefix = 'кило';
+                break;
+            case  'мг':
+                $prefix = 'милли';
+                break;
+            case  'мл':
+                $prefix = 'милли';
+                break;
+            default:
+                $prefix = '';
+                break;
+        }
+
         if (in_array($unit, ['кг', 'г', 'мг'])) {
-            $prefix = '';
-            if ($unit != 'г')
-                $unit == 'кг' ? $prefix = 'кило' : $prefix = 'мили';
             if (in_array($lastDigit, [2, 3, 4]) && !$isDec) {
                 return $count_result . $prefix . 'грамма';
             } else
                 return $count_result . $prefix . 'грамм';
         }
 
-        if ($unit == 'л') {
-            if ($count == 1)
-                return $count_result . 'литр';
+        if ($unit == 'л' || $unit == 'мл') {
+            if ($count == 1 || (!$isDec && $lastDigit == 1))
+                return $count_result . $prefix . 'литр';
             if (in_array($lastDigit, [2, 3, 4]) && !$isDec) {
-                return $count_result . 'литра';
-            } else
-                return $count_result . 'литров';
+                return $count_result . $prefix . 'литра';
+            } else {
+                return $count_result . $prefix . 'литров';
+            }
         }
 
         return '';
