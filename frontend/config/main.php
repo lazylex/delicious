@@ -44,8 +44,8 @@ return [
             'showScriptName' => false,
 
             'rules' => [
-                'add'=>'recipe/add',
-              /*  'admin'=>'/backend/web',*/
+                'add' => 'recipe/add',
+                /*  'admin'=>'/backend/web',*/
             ],
         ],
 
