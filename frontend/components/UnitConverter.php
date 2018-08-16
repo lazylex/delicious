@@ -14,12 +14,32 @@ class UnitConverter extends Component
 {
     public function toString($unit, $count = 1, $returnWithCount = true)
     {
-        if ($count <= 0)
+        if (!is_numeric($count) || $count <= 0)
             return '';
         $count_result = $returnWithCount ? $count . ' ' : '';
 
-        if (!is_integer($count))
-            return '';//реализовать конвертацию для нецелочисленных значений и внести изменение в тип поля в БД. а пока просто вернуть пустое значение
+        if (!is_integer($count) && ((int)$count != $count)) {
+            switch ($unit) {
+                case 'кг':
+                    return $count_result . 'килограмма';
+                    break;
+                case 'г':
+                    return $count_result . 'грамма';
+                    break;
+                case  'мг':
+                    return $count_result . 'миллиграмма';
+                    break;
+                case  'мл':
+                    return $count_result . 'миллилитра';
+                    break;
+                case  'ложка':
+                    return $count_result . 'ложки';
+                    break;
+                case  'чайная ложка':
+                    return $count_result . 'чайной ложки';
+                    break;
+            }
+        }
         $isDec = (floor($count / 10) % 10) == 1 ? true : false;
         $lastDigit = $count % 10;
 
@@ -32,6 +52,9 @@ class UnitConverter extends Component
                 break;
             case  'мл':
                 $prefix = 'милли';
+                break;
+            case  'чайная ложка':
+                $prefix = 'чайн';
                 break;
             default:
                 $prefix = '';
@@ -52,6 +75,16 @@ class UnitConverter extends Component
                 return $count_result . $prefix . 'литра';
             } else {
                 return $count_result . $prefix . 'литров';
+            }
+        }
+
+        if ($unit == 'ложка' || $unit == 'чайная ложка') {
+            if ($count == 1 || (!$isDec && $lastDigit == 1))
+                return $count_result . (empty($prefix) ? $prefix : $prefix . 'ая ') . 'ложка';
+            if (in_array($lastDigit, [2, 3, 4]) && !$isDec) {
+                return $count_result . (empty($prefix) ? $prefix : $prefix . 'ые ') . 'ложки';
+            } else {
+                return $count_result . (empty($prefix) ? $prefix : $prefix . 'ых ') . 'ложек';
             }
         }
 
