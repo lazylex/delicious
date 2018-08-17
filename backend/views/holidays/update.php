@@ -6,9 +6,9 @@ use yii\helpers\Html;
 /* @var $model backend\models\Holidays */
 
 $this->title = 'Update Holidays: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Holidays', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Праздники', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->holiday_id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Обновить';
 ?>
 <div class="holidays-update">
 

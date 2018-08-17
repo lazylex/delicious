@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\Holidays */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Holidays', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Праздники', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="holidays-view">
@@ -15,23 +15,23 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->holiday_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->holiday_id], [
+        <?= Html::a('Обновить', ['update', 'id' => $model->holiday_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->holiday_id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы действительно хотите удалить эту запись?',
                 'method' => 'post',
             ],
         ]) ?>
     </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'holiday_id',
-            'date',
-            'name',
-        ],
-    ]) ?>
-
+    <div class="row col-lg-5">
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'holiday_id',
+                'date',
+                'name',
+            ], 'options' => ['class' => 'table table-striped table-bordered']
+        ]) ?>
+    </div>
 </div>

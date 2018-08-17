@@ -6,15 +6,15 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Holidays */
 
-$this->title = 'Create Holidays';
-$this->params['breadcrumbs'][] = ['label' => 'Holidays', 'url' => ['index']];
+$this->title = 'Добавить праздник';
+$this->params['breadcrumbs'][] = ['label' => 'Праздники', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="holidays-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
+    <h1 class="text-success"><?= Html::encode($this->title) ?></h1>
+    <br>
+    <?= $this->render('_formCreate', [
         'model' => $model,
     ]) ?>
 

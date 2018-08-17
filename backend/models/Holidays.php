@@ -29,12 +29,14 @@ class Holidays extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date', 'name'], 'required'],
-            [['holiday_id'], 'integer'],
-            [['date','holiday_id'], 'safe'],
-            [['name'], 'string', 'max' => 50],
-            [['name'], 'unique'],
-            [['holiday_id'], 'unique'],
+            [['name'], 'required', 'message' => 'Это поле не может быть пустым. Введите название праздника.'],
+            [['date'], 'required', 'message' => 'Выберите дату'],
+            [['holiday_id'], 'integer', 'message' => 'Первичный ключ должен быть целочисленным'],
+            [['date', 'holiday_id'], 'safe'],
+            [['name'], 'string', 'max' => 50, 'tooLong' => 'Максимальная длина названия праздника - 50 символов'],
+            [['name'], 'string', 'min' => 5, 'tooShort' => 'Минимальная длина названия праздника - 5 символов'],
+            [['name'], 'unique', 'message' => 'Название праздника не должно повторяться в БД'],
+            [['holiday_id'], 'unique', 'message' => 'Первичный ключ должен быть уникальным'],
         ];
     }
 
@@ -44,9 +46,9 @@ class Holidays extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            /*'holiday_id' => 'Holiday ID',*/
-            'date' => 'Date',
-            'name' => 'Name',
+            'holiday_id' => 'Первичный ключ',
+            'date' => 'Дата',
+            'name' => 'Название праздника',
         ];
     }
 

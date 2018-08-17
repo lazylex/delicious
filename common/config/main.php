@@ -2,7 +2,7 @@
 return [
 
     'name'=>'Вкусняшки',
-
+    'language' => 'ru-RU', // язык приложения
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
