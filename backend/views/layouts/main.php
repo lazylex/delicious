@@ -23,7 +23,7 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+<body  style="background: black; background-image: url('http://www.zwalls.ru/pic/201310/1920x1200/zwalls.ru-31235.jpg')"><!-- Плохо так прописывать. Временная мера -->
 <?php $this->beginBody() ?>
 
 <div class="wrap">
@@ -36,6 +36,23 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
+        ['label' => 'Таблицы БД (контент)', 'url' => ['#'], 'items' => [
+            ['label' => 'Category', 'url' => '/backend/web/Category'],
+            ['label' => 'Recipe', 'url' => '/backend/web/Recipe'],
+            ['label' => 'Holidays', 'url' => '/backend/web/holidays'],
+            ['label' => 'Unit', 'url' => '/backend/web/Unit'],
+            ['label' => 'Ingredient', 'url' => '/backend/web/Ingredient'],
+            ['label' => 'Ingredients', 'url' => '/backend/web/Ingredients'],
+        ],],
+        ['label' => 'Таблицы БД (RBAC)', 'url' => ['#'], 'items' => [
+            ['label' => 'User', 'url' => '#'],
+            ['label' => 'auth_item', 'url' => '#'],
+            ['label' => 'auth_rule', 'url' => '#'],
+            ['label' => 'auth_assignment', 'url' => '#'],
+            ['label' => 'auth_item_child', 'url' => '#'],
+        ],],
+        ['label' => 'PHPmyAdmin', 'url' => ['http://localhost/phpmyadmin']],
+
         ['label' => 'Домой', 'url' => ['/site/index']],
     ];
     if (Yii::$app->user->isGuest) {
@@ -57,7 +74,7 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container">
+    <div class="container"  style="background: white;"><!-- Плохо так прописывать. Вынести в CSS. Временная мера -->
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>

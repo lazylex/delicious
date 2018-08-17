@@ -25,9 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'holiday_id',
-            'date',
-            'name',
+            ['attribute' => 'name', 'headerOptions' => ['width' => '70%']],
+            ['attribute' => 'date', 'headerOptions' => ['width' => 90]],
+            ['attribute' => 'holiday_id', 'headerOptions' => ['width' => 140]],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
