@@ -2,17 +2,18 @@
 
 namespace backend\controllers;
 
-use Yii;
 use backend\models\Unit;
-use backend\models\UnitSearch;
+use Yii;
+use backend\models\Ingredient;
+use backend\models\IngredientSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * UnitController implements the CRUD actions for Unit model.
+ * IngredientController implements the CRUD actions for Ingredient model.
  */
-class UnitController extends Controller
+class IngredientController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +31,12 @@ class UnitController extends Controller
     }
 
     /**
-     * Lists all Unit models.
+     * Lists all Ingredient models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UnitSearch();
+        $searchModel = new IngredientSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +46,7 @@ class UnitController extends Controller
     }
 
     /**
-     * Displays a single Unit model.
+     * Displays a single Ingredient model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -53,30 +54,31 @@ class UnitController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($id),'unit'=> Unit::find()->all()
         ]);
     }
 
     /**
-     * Creates a new Unit model.
+     * Creates a new Ingredient model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Unit();
+        $model = new Ingredient();
+        $unit = Unit::find()->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->unit_id]);
+            return $this->redirect(['view', 'id' => $model->ingredient_id]);
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'model' => $model, 'unit'=>$unit,
         ]);
     }
 
     /**
-     * Updates an existing Unit model.
+     * Updates an existing Ingredient model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -85,18 +87,18 @@ class UnitController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $unit = Unit::find()->all();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->unit_id]);
+            return $this->redirect(['view', 'id' => $model->ingredient_id]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'model' => $model, 'unit'=>$unit,
         ]);
     }
 
     /**
-     * Deletes an existing Unit model.
+     * Deletes an existing Ingredient model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,18 +112,18 @@ class UnitController extends Controller
     }
 
     /**
-     * Finds the Unit model based on its primary key value.
+     * Finds the Ingredient model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Unit the loaded model
+     * @return Ingredient the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Unit::findOne($id)) !== null) {
+        if (($model = Ingredient::findOne($id)) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException('Запрашиваемая страница не существует.');
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

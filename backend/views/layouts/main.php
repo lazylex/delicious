@@ -23,7 +23,7 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body  style="background: black; background-image: url('http://www.zwalls.ru/pic/201310/1920x1200/zwalls.ru-31235.jpg')"><!-- Плохо так прописывать. Временная мера -->
+<body  style="background: black; background-image: url('http://i98.beon.ru/66/78/2517866/59/97240759/454687.jpeg'); margin-top: 60px"><!-- Плохо так прописывать. Временная мера http://i25.beon.ru/33/79/2107933/66/81643666/32.png http://i64.ltalk.ru/36/25/32536/45/1211045/21718214_18844050_12808553_00000305.jpeg-->
 <?php $this->beginBody() ?>
 
 <div class="wrap">
@@ -36,13 +36,14 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
+        ['label' => 'GII', 'url' => ['/gii'],],
         ['label' => 'Таблицы БД (контент)', 'url' => ['#'], 'items' => [
-            ['label' => 'Category', 'url' => '/backend/web/Category'],
-            ['label' => 'Recipe', 'url' => '/backend/web/Recipe'],
+            ['label' => 'Category', 'url' => '/backend/web/category'],
+            ['label' => 'Recipe', 'url' => '/backend/web/recipe'],
             ['label' => 'Holidays', 'url' => '/backend/web/holidays'],
-            ['label' => 'Unit', 'url' => '/backend/web/Unit'],
-            ['label' => 'Ingredient', 'url' => '/backend/web/Ingredient'],
-            ['label' => 'Ingredients', 'url' => '/backend/web/Ingredients'],
+            ['label' => 'Unit', 'url' => '/backend/web/unit'],
+            ['label' => 'Ingredient', 'url' => '/backend/web/ingredient'],
+            ['label' => 'Ingredients', 'url' => '/backend/web/ingredients'],
         ],],
         ['label' => 'Таблицы БД (RBAC)', 'url' => ['#'], 'items' => [
             ['label' => 'User', 'url' => '#'],
@@ -51,7 +52,7 @@ AppAsset::register($this);
             ['label' => 'auth_assignment', 'url' => '#'],
             ['label' => 'auth_item_child', 'url' => '#'],
         ],],
-        ['label' => 'PHPmyAdmin', 'url' => ['http://localhost/phpmyadmin']],
+        ['label' => 'PHPmyAdmin', 'url' => ['http://www.yiiframework.com']],
 
         ['label' => 'Домой', 'url' => ['/site/index']],
     ];
@@ -74,9 +75,9 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container"  style="background: white;"><!-- Плохо так прописывать. Вынести в CSS. Временная мера -->
+    <div class="container"  style="background: #ebebeb; border-radius: 5px; background-image: url('https://donpedrobrooklyn.com/wp-content/uploads/2018/05/contour-background.png')"><!-- Плохо так прописывать. Вынести в CSS. Временная мера -->
         <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [], /*'options'=>['class'=>'success']*/
         ]) ?>
         <?= Alert::widget() ?>
         <?= $content ?>
