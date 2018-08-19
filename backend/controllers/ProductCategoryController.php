@@ -2,19 +2,17 @@
 
 namespace backend\controllers;
 
-use backend\models\ProductCategory;
-use backend\models\Unit;
 use Yii;
-use backend\models\Ingredient;
-use backend\models\IngredientSearch;
+use backend\models\ProductCategory;
+use backend\models\ProductCategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * IngredientController implements the CRUD actions for Ingredient model.
+ * ProductCategoryController implements the CRUD actions for ProductCategory model.
  */
-class IngredientController extends Controller
+class ProductCategoryController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -32,12 +30,12 @@ class IngredientController extends Controller
     }
 
     /**
-     * Lists all Ingredient models.
+     * Lists all ProductCategory models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new IngredientSearch();
+        $searchModel = new ProductCategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -47,7 +45,7 @@ class IngredientController extends Controller
     }
 
     /**
-     * Displays a single Ingredient model.
+     * Displays a single ProductCategory model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -55,32 +53,30 @@ class IngredientController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),'unit'=> Unit::find()->all(),'prod_cat' => ProductCategory::find()->all(),
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Ingredient model.
+     * Creates a new ProductCategory model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Ingredient();
-        $unit = Unit::find()->all();
-        $prod_cat = ProductCategory::find()->all();
+        $model = new ProductCategory();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ingredient_id]);
+            return $this->redirect(['view', 'id' => $model->product_category_id]);
         }
 
         return $this->render('create', [
-            'model' => $model, 'unit'=>$unit, 'prod_cat' => $prod_cat,
+            'model' => $model,
         ]);
     }
 
     /**
-     * Updates an existing Ingredient model.
+     * Updates an existing ProductCategory model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -89,19 +85,18 @@ class IngredientController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $unit = Unit::find()->all();
-        $prod_cat = ProductCategory::find()->all();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ingredient_id]);
+            return $this->redirect(['view', 'id' => $model->product_category_id]);
         }
 
         return $this->render('update', [
-            'model' => $model, 'unit'=>$unit, 'prod_cat'=>$prod_cat,
+            'model' => $model,
         ]);
     }
 
     /**
-     * Deletes an existing Ingredient model.
+     * Deletes an existing ProductCategory model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -115,15 +110,15 @@ class IngredientController extends Controller
     }
 
     /**
-     * Finds the Ingredient model based on its primary key value.
+     * Finds the ProductCategory model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Ingredient the loaded model
+     * @return ProductCategory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Ingredient::findOne($id)) !== null) {
+        if (($model = ProductCategory::findOne($id)) !== null) {
             return $model;
         }
 

@@ -33,7 +33,7 @@ class Ingredient extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'unit_id'], 'required'],
-            [['unit_id'], 'integer'],
+            [['unit_id','product_category_id'], 'integer'],
             [['calories'], 'number'],
             [['name'], 'string', 'max' => 30],
             [['unit_id'], 'exist', 'skipOnError' => true, 'targetClass' => Unit::className(), 'targetAttribute' => ['unit_id' => 'unit_id']],
@@ -50,6 +50,7 @@ class Ingredient extends \yii\db\ActiveRecord
             'name' => 'Название',
             'calories' => 'Килокалорий',
             'unit_id' => 'Единица измерения',
+            'product_category_id'=>'Категория продукта',
         ];
     }
 
@@ -59,6 +60,11 @@ class Ingredient extends \yii\db\ActiveRecord
     public function getUnit()
     {
         return $this->hasOne(Unit::className(), ['unit_id' => 'unit_id']);
+    }
+
+    public function getProductCategory()
+    {
+        return $this->hasOne(ProductCategory::className(), ['product_category_id' => 'product_category_id']);
     }
 
     /**

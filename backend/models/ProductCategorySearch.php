@@ -5,12 +5,12 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Ingredient;
+use backend\models\ProductCategory;
 
 /**
- * IngredientSearch represents the model behind the search form of `backend\models\Ingredient`.
+ * ProductCategorySearch represents the model behind the search form of `backend\models\ProductCategory`.
  */
-class IngredientSearch extends Ingredient
+class ProductCategorySearch extends ProductCategory
 {
     /**
      * {@inheritdoc}
@@ -18,8 +18,7 @@ class IngredientSearch extends Ingredient
     public function rules()
     {
         return [
-            [['ingredient_id', 'unit_id'], 'integer'],
-            ['calories','double'],
+            [['product_category_id'], 'integer'],
             [['name'], 'safe'],
         ];
     }
@@ -42,7 +41,7 @@ class IngredientSearch extends Ingredient
      */
     public function search($params)
     {
-        $query = Ingredient::find();
+        $query = ProductCategory::find();
 
         // add conditions that should always apply here
 
@@ -60,9 +59,7 @@ class IngredientSearch extends Ingredient
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'ingredient_id' => $this->ingredient_id,
-            'calories' => $this->calories,
-            'unit_id' => $this->unit_id,
+            'product_category_id' => $this->product_category_id,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);

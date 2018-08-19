@@ -19,8 +19,10 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'unit_id')->dropDownList(ArrayHelper::map($unit, 'unit_id', 'name'))->label('Выберите единицу измерения'); ?>
 
+    <?= $form->field($model, 'product_category_id')->dropDownList(ArrayHelper::map($prod_cat, 'product_category_id', 'name'))->label('Выберите категорию продукта'); ?>
+
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
