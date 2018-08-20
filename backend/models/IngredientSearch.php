@@ -18,8 +18,8 @@ class IngredientSearch extends Ingredient
     public function rules()
     {
         return [
-            [['ingredient_id', 'unit_id'], 'integer'],
-            ['calories','double'],
+            [['ingredient_id', 'unit_id','product_category_id'], 'integer'],
+            ['calories', 'double'],
             [['name'], 'safe'],
         ];
     }
@@ -42,7 +42,7 @@ class IngredientSearch extends Ingredient
      */
     public function search($params)
     {
-        $query = Ingredient::find();
+        $query = Ingredient::find()->with('productCategory')->with('unit');//жадная загрузка
 
         // add conditions that should always apply here
 
@@ -63,6 +63,7 @@ class IngredientSearch extends Ingredient
             'ingredient_id' => $this->ingredient_id,
             'calories' => $this->calories,
             'unit_id' => $this->unit_id,
+            'product_category_id' => $this->product_category_id,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);

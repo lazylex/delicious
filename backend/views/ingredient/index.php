@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use \common\components\UnitConverter;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\IngredientSearch */
@@ -9,7 +10,11 @@ use yii\grid\GridView;
 
 $this->title = 'Ингредиент';
 $this->params['breadcrumbs'][] = $this->title;
-$dataProvider->pagination=['pageSize'=>50];
+
+$dataProvider->pagination = ['pageSize' => 20];
+$unit_filter = \backend\models\Unit::find()->select(['name', 'unit_id'])->indexBy('unit_id')->column();
+foreach ($unit_filter as &$unit_item)
+    $unit_item = UnitConverter::toString($unit_item, 1, false);
 ?>
 <div class="ingredient-index">
 
@@ -25,12 +30,24 @@ $dataProvider->pagination=['pageSize'=>50];
             'filterModel' => $searchModel,
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
-                ['attribute' => 'ingredient_id', 'headerOptions' => ['width' => 90]],
-                'name',
-                ['attribute' => 'calories','headerOptions' => ['width' => 90]],
-                ['value' =>'unit.name'/*function( $unit) {return \frontend\components\UnitConverter::toString($unit->getUnit(),1,false);}*/, 'label' => 'Единица измерения','headerOptions' => ['width' => 90]],
-                ['value' => 'productCategory.name', 'label' => 'Категория продукта'],
 
+                'name',
+                ['attribute' => 'calories', 'headerOptions' => ['width' => 90]],
+                ['attribute' => 'unit_id',
+                    'value' => function ($model) {
+                        return UnitConverter::toString($model->unit->name, 1, false);
+                    },
+                    //'label' => 'Единица измерения',
+                    /*'headerOptions' => ['width' => 90],*/
+                    'filter' => $unit_filter,
+                ],
+
+                ['attribute' => 'product_category_id',
+                    'value' => 'productCategory.name',
+
+                    'filter' => \backend\models\ProductCategory::find()->select(['name', 'product_category_id'])->indexBy('product_category_id')->column(),
+                ],
+                ['attribute' => 'ingredient_id', /*'headerOptions' => ['width' => 90]*/],
                 ['class' => 'yii\grid\ActionColumn'],
             ],
         ]); ?>

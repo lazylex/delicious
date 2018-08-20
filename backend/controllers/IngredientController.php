@@ -54,8 +54,9 @@ class IngredientController extends Controller
      */
     public function actionView($id)
     {
+        $model=$this->findModel($id);
         return $this->render('view', [
-            'model' => $this->findModel($id),'unit'=> Unit::find()->all(),'prod_cat' => ProductCategory::find()->all(),
+            'model' => $model,
         ]);
     }
 

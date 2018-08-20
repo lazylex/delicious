@@ -6,7 +6,7 @@
  * Time: 9:45
  */
 
-namespace frontend\components;
+namespace common\components;
 
 use yii\base\Component;
 
@@ -88,6 +88,6 @@ class UnitConverter extends Component
             }
         }
 
-        return '';
+        return $unit;
     }
 }

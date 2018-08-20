@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use \common\components\UnitConverter;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Ingredient */
@@ -24,15 +25,20 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-<?=\frontend\components\UnitConverter::toString(\backend\models\Unit::findOne($model->unit)->name,1,false)?>
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'ingredient_id',
             'name',
             'calories',
-            //['attribute' =>'unit.name', 'label'=>'Единица измерения'],
-            ['attribute' =>function(){return \frontend\components\UnitConverter::toString(\backend\models\Unit::findOne($model->unit)->name,1,false);}, 'label'=>'Единица измерения'],
+            ['attribute' => function ($model) {
+                return UnitConverter::toString($model->unit->name, 1, false);
+            },
+                'label' => 'Единица измерения'
+            ],
+            ['attribute' =>'productCategory.name','label' => 'Категория продукта']
+            //['label' => 'Категория продукта', 'value' => $prod_cat]
         ],
     ]) ?>
 
