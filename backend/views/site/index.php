@@ -39,6 +39,11 @@ $this->title = 'Административный раздел';
                         <td><a style="color: black" href=" <?= \yii\helpers\Url::to(['/product-category'])?>">Категория продукта (ProductCategory)</a></td>
                         <td><?= \backend\models\ProductCategory::find()->count() ?></td>
                     </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td><a style="color: black" href=" <?= \yii\helpers\Url::to(['/category'])?>">Категории и подкатегории (Category)</a></td>
+                        <td><?= \backend\models\Category::find()->count() ?></td>
+                    </tr>
 
                     </tbody>
                 </table>
