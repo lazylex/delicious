@@ -12,9 +12,19 @@ $this->title = 'Ингредиент';
 $this->params['breadcrumbs'][] = $this->title;
 
 $dataProvider->pagination = ['pageSize' => 20];
-$unit_filter = \backend\models\Unit::find()->select(['name', 'unit_id'])->indexBy('unit_id')->column();
+
+/*
+if(!isset($unit_filter))
+$unit_filter = [];
+if(empty($unit_filter))
+foreach ($dataProvider->getModels() as $models) {
+    $unit_filter[$models['unit']['unit_id']] = UnitConverter::toString($models['unit']['name'], 1, false);
+}*/
+
 foreach ($unit_filter as &$unit_item)
-    $unit_item = UnitConverter::toString($unit_item, 1, false);
+        $unit_item = UnitConverter::toString($unit_item, 1, false);
+
+//\common\components\Debug::display($unit_name);
 ?>
 <div class="ingredient-index">
 
@@ -37,15 +47,14 @@ foreach ($unit_filter as &$unit_item)
                     'value' => function ($model) {
                         return UnitConverter::toString($model->unit->name, 1, false);
                     },
-                    //'label' => 'Единица измерения',
-                    /*'headerOptions' => ['width' => 90],*/
+
                     'filter' => $unit_filter,
                 ],
 
                 ['attribute' => 'product_category_id',
                     'value' => 'productCategory.name',
 
-                    'filter' => \backend\models\ProductCategory::find()->select(['name', 'product_category_id'])->indexBy('product_category_id')->column(),
+                    'filter' =>$productCategoryFilter,// \backend\models\ProductCategory::find()->select(['name', 'product_category_id'])->indexBy('product_category_id')->column(),
                 ],
                 ['attribute' => 'ingredient_id', /*'headerOptions' => ['width' => 90]*/],
                 ['class' => 'yii\grid\ActionColumn'],

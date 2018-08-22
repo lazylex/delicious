@@ -9,7 +9,6 @@ use yii\grid\GridView;
 
 $this->title = 'Categories';
 $this->params['breadcrumbs'][] = $this->title;
-\common\components\Debug::display($this);
 ?>
 <div class="category-index">
 
@@ -27,13 +26,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'category_id',
-            /*'parent_id',*/
             [
                 'attribute' => 'parent_id',
-                'value' => function ($data) {//почему это работает?
-                    //\common\components\Debug::display($data);
-                    if ($data->parent_id != null)
-                        return \backend\models\Category::findOne($data->parent_id)->name;
+                'value' => function ($model) use($dataProvider){
+                    $categories_name=[];
+                    foreach ($dataProvider->getModels() as $models)
+                    {
+                        //echo $key;
+                        $categories_name[$models['category_id']]=$models['name'];
+                    }
+                    if ($model->parent_id != null)
+                        return $categories_name[$model->parent_id];
                     return '';
                 }
             ],

@@ -39,10 +39,21 @@ class IngredientController extends Controller
     {
         $searchModel = new IngredientSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        //$productCategoryFilter = ProductCategory::find()->select(['name', 'product_category_id'])->indexBy('product_category_id')->column();
+
+        $productCategoryFilter = Yii::$app->cache->getOrSet('productCategoryFilter', function () {
+            return ProductCategory::find()->select(['name', 'product_category_id'])->indexBy('product_category_id')->column();
+        });
+
+        $unit_filter = Yii::$app->cache->getOrSet('unit_filter', function () {
+            return Unit::find()->select(['name', 'unit_id'])->indexBy('unit_id')->column();
+        });
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'productCategoryFilter' => $productCategoryFilter,
+            'unit_filter' => $unit_filter,
         ]);
     }
 
@@ -54,7 +65,7 @@ class IngredientController extends Controller
      */
     public function actionView($id)
     {
-        $model=$this->findModel($id);
+        $model = $this->findModel($id);
         return $this->render('view', [
             'model' => $model,
         ]);
@@ -69,14 +80,18 @@ class IngredientController extends Controller
     {
         $model = new Ingredient();
         $unit = Unit::find()->all();
-        $prod_cat = ProductCategory::find()->all();
+        //$prod_cat = ProductCategory::find()->all();
+
+        $prod_cat = Yii::$app->cache->getOrSet('prod_cat', function () {
+            return ProductCategory::find()->all();
+        });
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->ingredient_id]);
         }
 
         return $this->render('create', [
-            'model' => $model, 'unit'=>$unit, 'prod_cat' => $prod_cat,
+            'model' => $model, 'unit' => $unit, 'prod_cat' => $prod_cat,
         ]);
     }
 
@@ -91,13 +106,18 @@ class IngredientController extends Controller
     {
         $model = $this->findModel($id);
         $unit = Unit::find()->all();
-        $prod_cat = ProductCategory::find()->all();
+        //$prod_cat = ProductCategory::find()->all();
+
+        $prod_cat = Yii::$app->cache->getOrSet('prod_cat', function () {
+            return ProductCategory::find()->all();
+        });
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->ingredient_id]);
         }
 
         return $this->render('update', [
-            'model' => $model, 'unit'=>$unit, 'prod_cat'=>$prod_cat,
+            'model' => $model, 'unit' => $unit, 'prod_cat' => $prod_cat,
         ]);
     }
 
