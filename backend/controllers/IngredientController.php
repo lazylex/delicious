@@ -79,8 +79,12 @@ class IngredientController extends Controller
     public function actionCreate()
     {
         $model = new Ingredient();
-        $unit = Unit::find()->all();
+        //$unit = Unit::find()->all();
         //$prod_cat = ProductCategory::find()->all();
+
+        $unit = Yii::$app->cache->getOrSet('unit', function () {
+            return Unit::find()->all();
+        });
 
         $prod_cat = Yii::$app->cache->getOrSet('prod_cat', function () {
             return ProductCategory::find()->all();
@@ -105,7 +109,10 @@ class IngredientController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $unit = Unit::find()->all();
+        //$unit = Unit::find()->all();
+        $unit = Yii::$app->cache->getOrSet('unit', function () {
+            return Unit::find()->all();
+        });
         //$prod_cat = ProductCategory::find()->all();
 
         $prod_cat = Yii::$app->cache->getOrSet('prod_cat', function () {

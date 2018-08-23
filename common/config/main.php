@@ -11,6 +11,7 @@ return [
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
+            'cachePath' => '@frontend/runtime/cache',
         ],
         //необходимо также запустить yii migrate --migrationPath=@yii/rbac/migrations
         'authManager' => [
