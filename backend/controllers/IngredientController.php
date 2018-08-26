@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\ProductCategory;
 use backend\models\Unit;
+use common\components\Debug;
 use Yii;
 use backend\models\Ingredient;
 use backend\models\IngredientSearch;
@@ -65,7 +66,13 @@ class IngredientController extends Controller
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
+        //$model = $this->findModel($id);
+        //Debug::display($model);
+        if (!Yii::$app->cache->exists('Ingredient_model_' . $id)) {
+            $model = $this->findModel($id);
+            Yii::$app->cache->set('Ingredient_model_' . $id, $model);
+        } else
+            $model = Yii::$app->cache->get('Ingredient_model_' . $id);
         return $this->render('view', [
             'model' => $model,
         ]);

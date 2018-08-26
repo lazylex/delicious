@@ -1,4 +1,5 @@
 <?php
+use \yii\helpers\Url;
 
 /* @var $this yii\web\View */
 
@@ -19,31 +20,17 @@ $this->title = 'Административный раздел';
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td><a style="color: black" href=" <?= \yii\helpers\Url::to(['/holidays'])?>">Праздники (Holidays)</a></td>
-                        <td><?= \backend\models\Holidays::find()->count() ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td><a style="color: black" href=" <?= \yii\helpers\Url::to(['/unit'])?>">Единицы измерения (Unit)</a></td>
-                        <td><?= \backend\models\Unit::find()->count() ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td><a style="color: black" href=" <?= \yii\helpers\Url::to(['/ingredient'])?>">Ингредиент (Ingredient)</a></td>
-                        <td><?= \backend\models\Ingredient::find()->count() ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td><a style="color: black" href=" <?= \yii\helpers\Url::to(['/product-category'])?>">Категория продукта (ProductCategory)</a></td>
-                        <td><?= \backend\models\ProductCategory::find()->count() ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td><a style="color: black" href=" <?= \yii\helpers\Url::to(['/category'])?>">Категории и подкатегории (Category)</a></td>
-                        <td><?= \backend\models\Category::find()->count() ?></td>
-                    </tr>
+                    <?php $row_number = 0;
+                    foreach ($tableItemCount as $key => $count):?>
+                        <tr>
+                            <th scope="row"><?php $row_number++;
+                                echo $row_number ?></th>
+                            <td><a style="color: black"
+                                   href=" <?= Url::to(['/' . \common\components\Camel::from_camel_case($key)]) ?>"><?= $key ?></a>
+                            </td>
+                            <td><?= $count ?></td>
+                        </tr>
+                    <?php endforeach; ?>
 
                     </tbody>
                 </table>
