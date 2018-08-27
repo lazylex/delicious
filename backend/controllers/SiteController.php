@@ -61,14 +61,14 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $tables=['Holidays','Unit','Ingredient','ProductCategory','Category','User','Recipe'];
+        $tables=['Holidays','Unit','Ingredient','Ingredients','ProductCategory','Category','User','Recipe'];
 
         foreach ($tables as $table)
         {
             $class='\backend\models\\'.$table;
             $tableItemCount[$table]=$class::find()->count();
         }
-        return $this->render('index',compact('tableItemCount'));
+        return $this->render('index',['tableItemCount'=>$tableItemCount,]);
     }
 
     /**
