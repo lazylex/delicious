@@ -9,14 +9,16 @@ namespace frontend\controllers;
 
 use backend\models\Category;
 use backend\models\CategorySearch;
+use backend\models\Holidays;
 use yii\web\Controller;
 
 class RecipeController extends Controller
 {
     public function actionAdd()
     {
-        $category= new CategorySearch();
+        $category= new Category();
+        $holidays=new Holidays();
 
-        return $this->render('add',['category'=>$category]);
+        return $this->render('add',compact('category','holidays'));
     }
 }
