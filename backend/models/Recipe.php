@@ -56,15 +56,15 @@ class Recipe extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'recipe_id' => 'Recipe ID',
-            'name' => 'Name',
-            'calories' => 'Calories',
-            'time' => 'Time',
-            'holiday_id' => 'Holiday ID',
-            'author' => 'Author',
-            'annotation' => 'Annotation',
-            'article' => 'Article',
-            'category_id' => 'Category ID',
+            'recipe_id' => 'Первичный ключ',
+            'name' => 'Название',
+            'calories' => 'Килокалорий',
+            'time' => 'Время приготовления',
+            'holiday_id' => 'Для какого праздника является традиционным блюдом',
+            'author' => 'Автор',
+            'annotation' => 'Краткое описание',
+            'article' => 'Рецепт',
+            'category_id' => 'Категория',
         ];
     }
 

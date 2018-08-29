@@ -9,6 +9,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
+use yii\grid\GridView;
+use yii\data\ArrayDataProvider;
 
 $this->title = "Добавить рецепт";
 ?>
@@ -18,25 +20,83 @@ $this->title = "Добавить рецепт";
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <p>1. Выберите категорию рецепта</p>
-
-    <?php $cat = Yii::$app->request->post('Category')['category_id'];
-    //\common\components\Debug::display($cat)
+    <?php
+    $cat = Yii::$app->request->post('Category')['category_id'];
+    $hol = Yii::$app->request->post('Holidays')['holiday_id'];
+    //\common\components\Debug::display(Yii::$app->user->identity)
     ?>
 
-    <?= $form->field($category, 'category_id')->dropDownList($category->find()->select(['name', 'category_id'])->orderBy('category_id')->column(),
+    <?= $form->
+    field($model, 'category_id')->
+    dropDownList($category->column(),
         [
             'options' =>
                 [
-                     $cat  => [
+                    $cat => [
                         'selected' => true
                     ]
                 ]
         ])->label('Выберите категорию'); ?>
 
-    <p>2. Для какого праздника этот рецепт является традиционным:</p>
+    <?= $form->
+    field($model, 'holiday_id')->
+    dropDownList($holidays->find()->select(['name', 'holiday_id'])->orderBy('holiday_id')->
+    column(),
+        [
+            'prompt' => 'Выберите праздник, для которого данное блюдо является традиционным',
+            'options' =>
+                [
+                    $hol => [
+                        'selected' => true
+                    ]
+                ]
+        ])->
+    label('Выберите праздник'); ?>
 
-    <?= $form->field($holidays, 'holiday_id')->dropDownList($holidays->find()->select(['name', 'holiday_id'])->orderBy('holiday_id')->column(), ['prompt' => 'Выберите праздник, если есть подходящий',])->label('Выберите праздник'); ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
+    <?php $data = [
+        ['id' => 1, 'name' => 'name 1', 'calories' => 14],
+        ['id' => 2, 'name' => 'name 2', 'calories' => 11],
+
+        ['id' => 100, 'name' => 'name 100', 'calories' => 13],
+    ];
+
+    $provider = new ArrayDataProvider([
+        'allModels' => $data,
+        'pagination' => [
+            'pageSize' => 10,
+        ],
+        'sort' => [
+            'attributes' => ['id', 'name', 'calories'],
+        ],
+    ]);
+    ?>
+    <?= GridView::widget([
+        'dataProvider' => $provider,
+        /*'filterModel' => $searchModel,*/
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'name',
+            'calories',
+            'unit.name',
+        ],
+    ]);
+
+    ?>
+
+    <?= $form->field($model, 'calories')->textInput() ?>
+
+    <?= $form->field($model, 'time')->textInput() ?>
+
+    <?= $form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/]) ?>
+
+    <?= $form->field($model, 'annotation')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'article')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'category_id')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
