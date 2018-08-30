@@ -23,7 +23,7 @@ $this->title = "Добавить рецепт";
     <?php
     $cat = Yii::$app->request->post('Category')['category_id'];
     $hol = Yii::$app->request->post('Holidays')['holiday_id'];
-    //\common\components\Debug::display(Yii::$app->user->identity)
+    \common\components\Debug::display($model->recipe_id);
     ?>
 
     <?= $form->
@@ -90,7 +90,7 @@ $this->title = "Добавить рецепт";
 
     <?= $form->field($model, 'time')->textInput() ?>
 
-    <?= $form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/]) ?>
+    <?= ''//$form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/]) ?>
 
     <?= $form->field($model, 'annotation')->textInput(['maxlength' => true]) ?>
 

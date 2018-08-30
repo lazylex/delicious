@@ -1,6 +1,6 @@
 <?php
 use \yii\helpers\Url;
-
+use \yii\helpers\Inflector;
 /* @var $this yii\web\View */
 
 $this->title = 'Административный раздел';
@@ -26,7 +26,7 @@ $this->title = 'Административный раздел';
                             <th scope="row"><?php $row_number++;
                                 echo $row_number ?></th>
                             <td><a style="color: black"
-                                   href=" <?= Url::to(['/' . \common\components\Camel::from_camel_case($key)]) ?>"><?= $key ?></a>
+                                   href=" <?= Url::to(['/' .Inflector::camel2id($key)]) ?>"><?= $key ?></a>
                             </td>
                             <td><?= $count ?></td>
                         </tr>

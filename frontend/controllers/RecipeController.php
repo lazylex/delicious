@@ -9,7 +9,6 @@
 namespace frontend\controllers;
 
 use backend\models\Category;
-use backend\models\CategorySearch;
 use backend\models\Holidays;
 use backend\models\Recipe;
 use yii\web\Controller;
