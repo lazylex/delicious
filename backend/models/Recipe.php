@@ -41,7 +41,7 @@ class Recipe extends \yii\db\ActiveRecord
         return [
             [['calories', 'holiday_id', 'author', 'category_id'], 'integer'],
             [['time'], 'safe'],
-            [['article', 'category_id'], 'required'],
+            [['article', 'category_id','name'], 'required'],
             [['article'], 'string'],
             [['name', 'annotation'], 'string', 'max' => 255],
             [['author'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['author' => 'id']],

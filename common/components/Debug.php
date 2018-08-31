@@ -21,7 +21,7 @@ class Debug
         }
         else
         {
-            echo '<span style="color: red;">NULL</span>>';
+            echo '<span style="color: red;">NULL</span><br>';
         }
     }
 }
