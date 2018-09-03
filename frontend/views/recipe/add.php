@@ -22,22 +22,28 @@ $this->title = "Добавить рецепт";
     <?php $form = ActiveForm::begin(); ?>
 
     <?php
+
+    Debug::display($_POST);
+
     $cat = Yii::$app->request->post('Category')['category_id'];
     $hol = Yii::$app->request->post('Holidays')['holiday_id'];
     //Debug::display($model->recipe_id);
-    Debug::display($ingredient);
+
     foreach ($ingredient as $ing_item) {
+
         $nice_name = str_replace(' ', '_', $ing_item['name']);
         $ing_item['calories']<2?$color='yellow':$color='orange';
         if($ing_item['calories']<1) $color='lightgreen';
         echo "<button 
+            type='button'
             style='background: {$color}'
             name='{$nice_name}'
             id=ing_but_{$ing_item['ingredient_id']}
-            onClick=addIngredient(1,'ing_but_{$ing_item['ingredient_id']}')
+            onClick=addIngredient({$ing_item['ingredient_id']},'ing_but_{$ing_item['ingredient_id']}')
             >{$ing_item['name']}
             </button>";
     }
+
     ?>
 
     <?= $form->
@@ -79,6 +85,8 @@ $this->title = "Добавить рецепт";
     <?= $form->field($model, 'annotation')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'article')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model,'ing_post')->hiddenInput(['id'=>"ing_post", 'value'=>""])?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
