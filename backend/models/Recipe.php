@@ -25,7 +25,7 @@ use Yii;
  */
 class Recipe extends \yii\db\ActiveRecord
 {
-    public $ing_post=[];
+
     /**
      * {@inheritdoc}
      */

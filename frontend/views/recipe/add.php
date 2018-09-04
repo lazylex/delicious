@@ -23,28 +23,41 @@ $this->title = "Добавить рецепт";
 
     <?php
 
-    Debug::display($_POST);
-
     $cat = Yii::$app->request->post('Category')['category_id'];
     $hol = Yii::$app->request->post('Holidays')['holiday_id'];
-    //Debug::display($model->recipe_id);
+    Debug::display($_POST);
 
     foreach ($ingredient as $ing_item) {
 
-        $nice_name = str_replace(' ', '_', $ing_item['name']);
+        $nice_name = str_replace(' ', ' ', $ing_item['name']);
         $ing_item['calories']<2?$color='yellow':$color='orange';
         if($ing_item['calories']<1) $color='lightgreen';
+
         echo "<button 
             type='button'
             style='background: {$color}'
             name='{$nice_name}'
             id=ing_but_{$ing_item['ingredient_id']}
-            onClick=addIngredient({$ing_item['ingredient_id']},'ing_but_{$ing_item['ingredient_id']}')
+            onClick=addIngredient('{$ing_item['ingredient_id']}','ing_but_{$ing_item['ingredient_id']}','{$nice_name}')
             >{$ing_item['name']}
             </button>";
     }
 
     ?>
+    <br><br>
+    <div class="content-container">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Количество</th>
+            <th scope="col">Название</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody id="added_ing">
+        </tbody>
+    </table>
+    </div>
 
     <?= $form->
     field($model, 'category_id')->
@@ -85,8 +98,6 @@ $this->title = "Добавить рецепт";
     <?= $form->field($model, 'annotation')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'article')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model,'ing_post')->hiddenInput(['id'=>"ing_post", 'value'=>""])?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
