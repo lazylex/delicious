@@ -16,6 +16,7 @@ function addIngredient(id, name, nice_name, color) {
     del.type = 'button';
     del.name = 'del_but_'+id;
     del.innerText = 'Удалить';
+    del.className="btn";
     del.onclick=function () {
         document.getElementById("ing_row_"+id).remove();
         document.getElementById("ing_but_"+id).style.display = 'inline';

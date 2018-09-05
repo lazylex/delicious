@@ -12,6 +12,7 @@ use backend\models\Category;
 use backend\models\Holidays;
 use backend\models\Ingredient;
 use backend\models\IngredientSearch;
+use backend\models\ProductCategory;
 use backend\models\Recipe;
 use common\components\Debug;
 use yii\web\Controller;
@@ -24,9 +25,9 @@ class RecipeController extends Controller
         //$category = new Category();
         $category = Category::find()->select(['name', 'category_id'])->orderBy('category_id');
         $holidays = new Holidays();
-        $ingredient=Ingredient::find()->asArray()->all();
+        $ingredient = Ingredient::find()->asArray()->all();
         $model = new Recipe();
-
+        $prod_cat=ProductCategory::find()->asArray()->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             /*return $this->redirect(['view', 'id' => $model->ingredient_id]);*/
@@ -34,7 +35,7 @@ class RecipeController extends Controller
 
         }
 
-        return $this->render('add', compact('model', 'category', 'holidays','ingredient'));
+        return $this->render('add', compact('model', 'category', 'holidays', 'ingredient','prod_cat'));
     }
 
     public function actionIndex()
