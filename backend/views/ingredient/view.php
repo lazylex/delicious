@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use \common\components\UnitConverter;
+use \common\components\ConverterUtil;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Ingredient */
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'calories',
             ['attribute' => function ($model) {
-                return UnitConverter::toString($model->unit->name, 1, false);
+                return ConverterUtil::UnitToString($model->unit->name, 1, false);
             },
                 'label' => 'Единица измерения'
             ],

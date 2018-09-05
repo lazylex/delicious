@@ -30,33 +30,36 @@ $this->title = "Добавить рецепт";
     foreach ($ingredient as $ing_item) {
 
         $nice_name = str_replace(' ', ' ', $ing_item['name']);
-        $ing_item['calories']<2?$color='yellow':$color='orange';
-        if($ing_item['calories']<1) $color='lightgreen';
+        $color = \common\components\ConverterUtil::CaloriesToColor($ing_item['calories']);
 
         echo "<button 
             type='button'
             style='background: {$color}'
             name='{$nice_name}'
             id=ing_but_{$ing_item['ingredient_id']}
-            onClick=addIngredient('{$ing_item['ingredient_id']}','ing_but_{$ing_item['ingredient_id']}','{$nice_name}')
+            onClick=addIngredient('{$ing_item['ingredient_id']}','ing_but_{$ing_item['ingredient_id']}','{$nice_name}','{$color}')
             >{$ing_item['name']}
             </button>";
     }
 
     ?>
     <br><br>
-    <div class="content-container">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th scope="col">Количество</th>
-            <th scope="col">Название</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody id="added_ing">
-        </tbody>
-    </table>
+    <div style="background:gray; margin: auto; width: 90%; visibility: hidden; border-radius: 15px; border: black solid 1px; text-align: center"
+         id="added_ing_div">
+        <p style="color: yellow; padding-top: 5px">Необходимые для приготовления ингредиенты:</p>
+        <div style="background: #cdc3b7; padding: 0; margin: auto;">
+            <table class="table table-striped table-bordered">
+                <thead style="background: black; color: antiquewhite">
+                <tr>
+                    <th scope="col">Количество</th>
+                    <th scope="col">Название</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody id="added_ing">
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <?= $form->
@@ -93,7 +96,7 @@ $this->title = "Добавить рецепт";
 
     <?= $form->field($model, 'time')->textInput() ?>
 
-    <?= ''//$form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/])  ?>
+    <?= ''//$form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/])    ?>
 
     <?= $form->field($model, 'annotation')->textInput(['maxlength' => true]) ?>
 

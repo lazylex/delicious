@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use \common\components\UnitConverter;
+use \common\components\ConverterUtil;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\IngredientSearch */
@@ -22,7 +22,7 @@ foreach ($dataProvider->getModels() as $models) {
 }*/
 
 foreach ($unit_filter as &$unit_item)
-        $unit_item = UnitConverter::toString($unit_item, 1, false);
+        $unit_item = ConverterUtil::UnitToString($unit_item, 1, false);
 
 //\common\components\Debug::display($unit_name);
 ?>
@@ -45,7 +45,7 @@ foreach ($unit_filter as &$unit_item)
                 ['attribute' => 'calories', 'headerOptions' => ['width' => 90]],
                 ['attribute' => 'unit_id',
                     'value' => function ($model) {
-                        return UnitConverter::toString($model->unit->name, 1, false);
+                        return ConverterUtil::UnitToString($model->unit->name, 1, false);
                     },
 
                     'filter' => $unit_filter,
