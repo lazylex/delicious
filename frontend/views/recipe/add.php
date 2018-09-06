@@ -12,6 +12,7 @@ use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
 use yii\data\ArrayDataProvider;
 use \common\components\Debug;
+use \common\components\ConverterUtil;
 
 $this->title = "Добавить рецепт";
 ?>
@@ -29,25 +30,30 @@ $this->title = "Добавить рецепт";
      * $model - модель Recipe
      * $category - выборка имен и ключей категорий рецепта, отсортированная по ключу
      * $holidays - модель Holidays
+     * $unit - массив с названиями единиц измерения (индекс массива совпадает с первичным ключем таблицы Unit)
      */
 
     $cat = Yii::$app->request->post('Category')['category_id'];
     $hol = Yii::$app->request->post('Holidays')['holiday_id'];
-    //Debug::display($prod_cat);
+    //Debug::display($unit);
 
     /* Заполняю массив кнопками добавления в рецепт ингредиентов */
     foreach ($ingredient as $ing_item) {
 
         $nice_name = str_replace(' ', ' ', $ing_item['name']);
-        $color = \common\components\ConverterUtil::CaloriesToColor($ing_item['calories']);
+        $color = ConverterUtil::CaloriesToColor($ing_item['calories']);
 
+        /* Очень калорийные продукты выведутся на красных кнопках, лучше им поставить светлый цвет текста*/
+        $ing_item['calories'] > 5 ? $but_text_color = 'color: yellow;' : $but_text_color = '';
+        $unit_str = $unit[$ing_item['unit_id']];
         $buttonsByCategory[$ing_item['product_category_id']][] = "<button 
             type='button'
-            style='background: {$color}; margin: 6px; box-shadow: 0 0 15px {$color};'
+            style='background: {$color}; margin: 6px; box-shadow: 0 0 15px {$color};{$but_text_color}'
             class='btn'
             name='{$nice_name}'
             id=ing_but_{$ing_item['ingredient_id']}
-            onClick=addIngredient('{$ing_item['ingredient_id']}','ing_but_{$ing_item['ingredient_id']}','{$nice_name}','{$color}')
+            
+            onClick=addIngredient('{$ing_item['ingredient_id']}','ing_but_{$ing_item['ingredient_id']}','{$nice_name}','{$color}','{$unit_str}')
             >{$ing_item['name']}
             </button>";
     }
@@ -60,62 +66,62 @@ $this->title = "Добавить рецепт";
     }
     ?>
 
-        <div class="row">
-            <div class="col-lg-12" id="ing_but_div">
-                <?php
-                /* Вывожу кнопки с ингредиентами, используя разбивку по категориям */
-                foreach ($buttonsByCategory as $prod_cat_id => $but_array) {
-                    $background = 'gray';
-                    switch ($product_category_name[$prod_cat_id]) {
-                        case 'Зерновые и бобовые':
-                            $background = 'lightyellow';
-                            break;
-                        case 'Мясо (птица и мясопродукты)':
-                            $background = 'pink';
-                            break;
-                        case 'Рыба и морепродукты':
-                            $background = 'lightblue';
-                            break;
-                        case 'Молочные продукты':
-                            $background = 'white';
-                            break;
-                        case 'Яйца':
-                            $background = 'antiquewhite';
-                            break;
-                    }
-                    echo "<div style='background:{$background}; padding-bottom: 25px; margin: auto;  border-radius: 15px; box-shadow: 0 0 25px {$background};  text-align: center'>
+    <div class="row">
+        <div class="col-lg-12" id="ing_but_div">
+            <?php
+            /* Вывожу кнопки с ингредиентами, используя разбивку по категориям */
+            foreach ($buttonsByCategory as $prod_cat_id => $but_array) {
+                $background = 'gray';
+                switch ($product_category_name[$prod_cat_id]) {
+                    case 'Зерновые и бобовые':
+                        $background = 'lightyellow';
+                        break;
+                    case 'Мясо (птица и мясопродукты)':
+                        $background = 'pink';
+                        break;
+                    case 'Рыба и морепродукты':
+                        $background = 'lightblue';
+                        break;
+                    case 'Молочные продукты':
+                        $background = 'white';
+                        break;
+                    case 'Яйца':
+                        $background = 'antiquewhite';
+                        break;
+                }
+                echo "<div style='background:{$background}; padding-bottom: 25px; margin: auto;  border-radius: 15px; box-shadow: 0 0 25px {$background};  text-align: center'>
                 <p>{$product_category_name[$prod_cat_id]}</p>
                 <div>";
-                    foreach ($but_array as $buttons)
-                        echo $buttons;
-                    echo "</div>
+                foreach ($but_array as $buttons)
+                    echo $buttons;
+                echo "</div>
             </div><br>";
-                }
+            }
 
-                ?>
+            ?>
 
-            </div>
+        </div>
 
-            <div class="col-lg-8"
-                 style="background:gray; visibility: hidden; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.5);  text-align: center"
-                 id="added_ing_div">
-                <p style="color: yellow; padding-top: 5px">Необходимые для приготовления ингредиенты:</p>
-                <div style="background: #cdc3b7; padding: 0; margin: auto;">
-                    <table class="table table-striped table-bordered">
-                        <thead style="background: black; color: antiquewhite">
-                        <tr>
-                            <th scope="col">Название</th>
-                            <th scope="col">Количество</th>
-                            <th scope="col">Единица измерения</th>
-                            <th scope="col"></th>
-                        </tr>
-                        </thead>
-                        <tbody id="added_ing">
-                        </tbody>
-                    </table>
-                </div>
+        <div class="col-lg-6"
+             style="background:gray; visibility: hidden; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.5);  text-align: center"
+             id="added_ing_div">
+            <p style="color: yellow; padding-top: 5px">Необходимые для приготовления ингредиенты:</p>
+            <div style="background: #cdc3b7; padding: 0; margin: auto;">
+                <table class="table table-striped table-bordered">
+                    <thead style="background: black; color: antiquewhite;">
+                    <tr>
+                        <th scope="col" style="text-align: center;">Название</th>
+                        <th scope="col">Количество</th>
+                        <th scope="col">Единица измерения</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody id="added_ing">
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
 
     <?= $form->
     field($model, 'category_id')->
@@ -151,7 +157,7 @@ $this->title = "Добавить рецепт";
 
     <?= $form->field($model, 'time')->textInput() ?>
 
-    <?= ''//$form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/])      ?>
+    <?= ''//$form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/])          ?>
 
     <?= $form->field($model, 'annotation')->textInput(['maxlength' => true]) ?>
 

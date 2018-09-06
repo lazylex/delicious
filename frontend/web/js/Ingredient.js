@@ -1,7 +1,7 @@
-function addIngredient(id, name, nice_name, color, unit) {
+function addIngredient(id, name, nice_name, color, unit_name) {
     document.getElementById(name).style.display = 'none';
     document.getElementById("added_ing_div").style.visibility = 'visible';
-    document.getElementById("ing_but_div").className="col-lg-4";
+    document.getElementById("ing_but_div").className="col-lg-6";
     var tr = document.createElement("tr");
     var count_td = document.createElement("td");
     var count = document.createElement("input");
@@ -35,6 +35,7 @@ function addIngredient(id, name, nice_name, color, unit) {
     count.style.textAlign='center';
     count_td.style.width="60px";
     unit.style.width="160px";
+    unit.innerText=unit_name;
     td_id.innerText = id;
     td_nice_name.innerText = nice_name;
     td_del.appendChild(del);
