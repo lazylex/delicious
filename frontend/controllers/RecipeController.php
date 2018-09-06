@@ -22,10 +22,11 @@ class RecipeController extends Controller
 {
     public function actionAdd()
     {
+        $this->layout='add';
         //$category = new Category();
         $category = Category::find()->select(['name', 'category_id'])->orderBy('category_id');
         $holidays = new Holidays();
-        $ingredient = Ingredient::find()->asArray()->all();
+        $ingredient = Ingredient::find()->asArray()->orderBy('name')->all();
         $model = new Recipe();
         $prod_cat=ProductCategory::find()->asArray()->all();
 

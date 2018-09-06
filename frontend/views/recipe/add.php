@@ -41,9 +41,9 @@ $this->title = "Добавить рецепт";
         $nice_name = str_replace(' ', ' ', $ing_item['name']);
         $color = \common\components\ConverterUtil::CaloriesToColor($ing_item['calories']);
 
-        $buttonsByCategory[$ing_item['product_category_id']][]= "<button 
+        $buttonsByCategory[$ing_item['product_category_id']][] = "<button 
             type='button'
-            style='background: {$color}; margin: 3px; box-shadow: 0 0 15px rgba(0,0,0,0.5);'
+            style='background: {$color}; margin: 6px; box-shadow: 0 0 15px {$color};'
             class='btn'
             name='{$nice_name}'
             id=ing_but_{$ing_item['ingredient_id']}
@@ -55,61 +55,67 @@ $this->title = "Добавить рецепт";
     //Debug::display($buttonsByCategory);
 
     /* Извлекаю названия категорий ингредиентов в отдельный массив */
-    foreach ($prod_cat as $pc)
-    {
-        $product_category_name[$pc['product_category_id']]=$pc['name'];
+    foreach ($prod_cat as $pc) {
+        $product_category_name[$pc['product_category_id']] = $pc['name'];
     }
+    ?>
 
-    /* Вывожу кнопки с ингредиентами, используя разбивку по категориям */
-    foreach ($buttonsByCategory as $prod_cat_id=>$but_array)
-    {
-        $background='gray';
-        switch ($product_category_name[$prod_cat_id])
-        {
-            case 'Зерновые и бобовые':
-                $background='lightyellow';
-                break;
-            case 'Мясо (птица и мясопродукты)':
-                $background='pink';
-                break;
-            case 'Рыба и морепродукты':
-                $background='lightblue';
-                break;
-            case 'Молочные продукты':
-                $background='white';
-                break;
-            case 'Яйца':
-                $background='antiquewhite';
-                break;
-        }
-        echo "<div style='background:{$background}; padding-bottom: 25px; margin: auto;  border-radius: 15px; box-shadow: 0 0 25px {$background};  text-align: center'>
+        <div class="row">
+            <div class="col-lg-12" id="ing_but_div">
+                <?php
+                /* Вывожу кнопки с ингредиентами, используя разбивку по категориям */
+                foreach ($buttonsByCategory as $prod_cat_id => $but_array) {
+                    $background = 'gray';
+                    switch ($product_category_name[$prod_cat_id]) {
+                        case 'Зерновые и бобовые':
+                            $background = 'lightyellow';
+                            break;
+                        case 'Мясо (птица и мясопродукты)':
+                            $background = 'pink';
+                            break;
+                        case 'Рыба и морепродукты':
+                            $background = 'lightblue';
+                            break;
+                        case 'Молочные продукты':
+                            $background = 'white';
+                            break;
+                        case 'Яйца':
+                            $background = 'antiquewhite';
+                            break;
+                    }
+                    echo "<div style='background:{$background}; padding-bottom: 25px; margin: auto;  border-radius: 15px; box-shadow: 0 0 25px {$background};  text-align: center'>
                 <p>{$product_category_name[$prod_cat_id]}</p>
                 <div>";
-        foreach ($but_array as $buttons)
-            echo $buttons.'  ';
-        echo "</div>
+                    foreach ($but_array as $buttons)
+                        echo $buttons;
+                    echo "</div>
             </div><br>";
-    }
+                }
 
-    ?>
-    <br><br>
-    <div style="background:gray; margin: auto; width: 90%; visibility: hidden; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.5); border: black solid 1px; text-align: center"
-         id="added_ing_div">
-        <p style="color: yellow; padding-top: 5px">Необходимые для приготовления ингредиенты:</p>
-        <div style="background: #cdc3b7; padding: 0; margin: auto;">
-            <table class="table table-striped table-bordered">
-                <thead style="background: black; color: antiquewhite">
-                <tr>
-                    <th scope="col">Количество</th>
-                    <th scope="col">Название</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody id="added_ing">
-                </tbody>
-            </table>
+                ?>
+
+            </div>
+
+            <div class="col-lg-8"
+                 style="background:gray; visibility: hidden; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.5);  text-align: center"
+                 id="added_ing_div">
+                <p style="color: yellow; padding-top: 5px">Необходимые для приготовления ингредиенты:</p>
+                <div style="background: #cdc3b7; padding: 0; margin: auto;">
+                    <table class="table table-striped table-bordered">
+                        <thead style="background: black; color: antiquewhite">
+                        <tr>
+                            <th scope="col">Название</th>
+                            <th scope="col">Количество</th>
+                            <th scope="col">Единица измерения</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody id="added_ing">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
 
     <?= $form->
     field($model, 'category_id')->
@@ -145,7 +151,7 @@ $this->title = "Добавить рецепт";
 
     <?= $form->field($model, 'time')->textInput() ?>
 
-    <?= ''//$form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/])    ?>
+    <?= ''//$form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/])      ?>
 
     <?= $form->field($model, 'annotation')->textInput(['maxlength' => true]) ?>
 
