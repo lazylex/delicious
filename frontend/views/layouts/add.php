@@ -24,7 +24,7 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body  style="background: aliceblue">
+<body  style="background: linear-gradient(to right, #b5bdc8 0%, #828c95 36%, #28343b 100%);">
 <?php $this->beginBody() ?>
 
 <div class="wrap">

@@ -1,7 +1,10 @@
 function addIngredient(id, name, nice_name, color, unit_name) {
     document.getElementById(name).style.display = 'none';
     document.getElementById("added_ing_div").style.visibility = 'visible';
-    document.getElementById("ing_but_div").className="col-lg-6";
+    document.getElementById("added_ing_div").style.height='auto';
+    document.getElementById("added_ing_div").style.marginTop='20px';
+    document.getElementById("added_ing_div").style.marginBottom='20px';
+    //document.getElementById("ing_but_div").className="col-lg-6";
     var tr = document.createElement("tr");
     var count_td = document.createElement("td");
     var count = document.createElement("input");
@@ -25,8 +28,11 @@ function addIngredient(id, name, nice_name, color, unit_name) {
         document.getElementById("ing_but_"+id).style.display = 'inline';
         if(document.getElementById('added_ing').childElementCount==0)
         {
+            document.getElementById("added_ing_div").style.marginTop='0px';
+            document.getElementById("added_ing_div").style.marginBottom='0px';
             document.getElementById("added_ing_div").style.visibility = 'hidden';
-            document.getElementById("ing_but_div").className="col-lg-12";
+            document.getElementById("added_ing_div").style.height='1px';
+            //document.getElementById("ing_but_div").className="col-lg-12";
         }
     }
     count.style.width="100%";
@@ -34,6 +40,7 @@ function addIngredient(id, name, nice_name, color, unit_name) {
     count.value = '1';
     count.style.textAlign='center';
     count_td.style.width="60px";
+    count.type="number";
     unit.style.width="160px";
     unit.innerText=unit_name;
     td_id.innerText = id;
