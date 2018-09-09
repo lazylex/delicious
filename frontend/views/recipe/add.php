@@ -44,17 +44,23 @@ $this->title = "Добавить рецепт";
         $color = ConverterUtil::CaloriesToColor($ing_item['calories']);
 
         /* Очень калорийные продукты выведутся на красных кнопках, лучше им поставить светлый цвет текста*/
-        $ing_item['calories'] > 5 ? $but_text_color = 'color: yellow;' : $but_text_color = '';
+        $ing_item['calories'] > 5 ? $but_text_color = 'color: black;' : $but_text_color = '';
         $unit_str = $unit[$ing_item['unit_id']];
         $buttonsByCategory[$ing_item['product_category_id']][] = "<button 
             type='button'
-            style='width: 245px; background: {$color}; margin: 6px; box-shadow: 0 0 15px rgba(0,0,0,0.9);{$but_text_color}'
-            class='btn'
+            style='width: 242px;
+                   margin: 5px;
+                    border-radius: 3px;
+                     border: solid {$color} 2px;
+                      box-shadow: 0 0 25px rgba(0,0,0,0.4);
+                       background:linear-gradient(to left, lightyellow 98%, {$color} 2%);
+                        {$but_text_color};'
+
             name='{$nice_name}'
             id=ing_but_{$ing_item['ingredient_id']}
             
-            onClick=addIngredient('{$ing_item['ingredient_id']}','ing_but_{$ing_item['ingredient_id']}','{$nice_name}','{$color}','{$unit_str}')
-            >{$ing_item['name']}
+            onClick=addIngredient('{$ing_item['ingredient_id']}','ing_but_{$ing_item['ingredient_id']}','{$nice_name}','{$color}','{$unit_str}','{$ing_item['calories']}')
+            ><strong>{$ing_item['name']}</strong>
             </button>";
     }
 
@@ -68,7 +74,7 @@ $this->title = "Добавить рецепт";
 
     <div class="row">
 
-        <div class="col-lg-6" >
+        <div class="col-lg-8" >
 
             <?= $form->
             field($model, 'category_id')->
@@ -99,7 +105,7 @@ $this->title = "Добавить рецепт";
 
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'calories')->textInput() ?>
+            <?= $form->field($model, 'calories')->textInput(['value'=>0]) ?>
 
             <?= $form->field($model, 'time')->textInput() ?>
 
@@ -117,6 +123,7 @@ $this->title = "Добавить рецепт";
                             <th scope="col" style="text-align: center;">Название</th>
                             <th scope="col" style="text-align: center;">Количество</th>
                             <th scope="col" style="text-align: center;">Единица измерения</th>
+                            <th scope="col" style="text-align: center;">Килокалорий</th>
                             <th scope="col" style="text-align: center;">Удалить</th>
                         </tr>
                         </thead>
@@ -139,7 +146,7 @@ $this->title = "Добавить рецепт";
 
         </div>
 
-        <div class="col-lg-6" id="ing_but_div">
+        <div class="col-lg-4" id="ing_but_div">
             <div style="background: rgba(255,255,255,0.5); padding: 12px; border-radius: 5px; box-shadow: 0 0 25px rgba(255,255,255,0.5); text-align: center">
                 <p><strong>Выберите ингредиенты, необходимые для приготовления блюда:</strong></p>
             <?php
@@ -163,9 +170,9 @@ $this->title = "Добавить рецепт";
                         $background = 'antiquewhite';
                         break;
                 }
-                echo "<div style='background:{$background}; padding-bottom: 25px; padding-top: 5px; margin: auto;  border-radius: 5px; box-shadow: 0 0 25px {$background};  text-align: center'>
+                echo "<div style='background:{$background}; padding-bottom: 25px; padding-top: 5px; margin: auto;  border-radius: 5px; box-shadow: 0 0 25px {$background}; text-align: center'>
                 <p><strong>{$product_category_name[$prod_cat_id]}</strong></p>
-                <div style='width: 97%; margin: auto; text-align: left'>";
+                <div style='width: 97%; margin: auto; text-align: left;'>";
                 foreach ($but_array as $buttons)
                     echo $buttons;
                 echo "</div>
