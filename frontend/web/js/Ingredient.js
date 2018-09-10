@@ -22,9 +22,10 @@ function addIngredient(id, name, nice_name, color, unit_name, calories) {
     var del = document.createElement("button");
     del.type = 'button';
     del.name = 'del_but_' + id;
-    del.innerText = 'Удалить';
+    del.innerText = '”далить';
     del.className = "btn";
     del.onclick = function () {
+        document.getElementById("recipe-calories").value = (document.getElementById("recipe-calories").value-document.getElementById("cal_" + id).innerText).toFixed(2);
         document.getElementById("ing_row_" + id).remove();
         document.getElementById("ing_but_" + id).style.display = 'inline';
         if (document.getElementById('added_ing').childElementCount == 0) {
@@ -43,6 +44,13 @@ function addIngredient(id, name, nice_name, color, unit_name, calories) {
     count.type = "number";
     count.onchange = function () {
         document.getElementById("cal_" + id).innerText = (calories * count.value).toFixed(2);
+        var cc = document.getElementsByClassName("calories_td");
+        var sum = 0;
+        for (var i = 0; i < cc.length; i++) {
+            sum = (parseFloat(sum) + parseFloat(cc[i].innerText)).toFixed(2);
+        }
+        //alert(sum);
+        document.getElementById("recipe-calories").value = sum.toString();
     }
     unit.style.width = "160px";
     unit.innerText = unit_name;
@@ -53,7 +61,9 @@ function addIngredient(id, name, nice_name, color, unit_name, calories) {
     tr.style.background = color;
     count_td.appendChild(count);
     td_cal.innerText = calories;
+    td_cal.className = 'calories_td';
     td_cal.id = 'cal_' + id;
+
     tr.appendChild(td_nice_name);
     tr.appendChild(count_td);
     tr.appendChild(unit);
@@ -63,4 +73,5 @@ function addIngredient(id, name, nice_name, color, unit_name, calories) {
 
     //document.getElementById('added_ing').className = "table table-bordered";
     document.getElementById('added_ing').appendChild(tr);
+    count.dispatchEvent(new Event('change'));
 }
