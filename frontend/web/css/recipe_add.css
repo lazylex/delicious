@@ -1,0 +1,37 @@
+.accordion {
+
+    border-bottom: solid 1px #c4c4c4;
+}
+.accordion h3 {
+    background: white url(./../images/arrow-square.gif) no-repeat right -51px;
+    padding: 7px 15px;
+    margin: 0;
+    font: bold 120%/100% Arial, Helvetica, sans-serif;
+    border: solid 1px #c4c4c4;
+    border-bottom: none;
+    cursor: pointer;
+
+}
+.accordion h3:hover {
+    background-color: orange;
+}
+.accordion h3.active {
+    background-position: right 5px;
+}
+.accordion div button:hover {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    border: white solid 2px;
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+.accordion div button{
+    height: 30px;
+    width: 96%;
+    text-align: left;
+    margin-left: 2%;
+    color: black;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+}

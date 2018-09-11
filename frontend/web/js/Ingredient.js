@@ -22,19 +22,22 @@ function addIngredient(id, name, nice_name, color, unit_name, calories) {
     var del = document.createElement("button");
     del.type = 'button';
     del.name = 'del_but_' + id;
-    del.innerText = '”далить';
+    del.innerText = 'Удалить';
     del.className = "btn";
     del.onclick = function () {
-        document.getElementById("recipe-calories").value = (document.getElementById("recipe-calories").value-document.getElementById("cal_" + id).innerText).toFixed(2);
+        sum = parseInt(sum - document.getElementById("cal_" + id).innerText, 10);
+
         document.getElementById("ing_row_" + id).remove();
         document.getElementById("ing_but_" + id).style.display = 'inline';
         if (document.getElementById('added_ing').childElementCount == 0) {
+            sum = 0;
             document.getElementById("added_ing_div").style.marginTop = '0px';
             document.getElementById("added_ing_div").style.marginBottom = '0px';
             document.getElementById("added_ing_div").style.visibility = 'hidden';
             document.getElementById("added_ing_div").style.height = '1px';
             //document.getElementById("ing_but_div").className="col-lg-12";
         }
+        document.getElementById("recipe-calories").value = sum;
     }
     count.style.width = "100%";
     count.name = 'ingredient[' + id + ']';
@@ -45,12 +48,12 @@ function addIngredient(id, name, nice_name, color, unit_name, calories) {
     count.onchange = function () {
         document.getElementById("cal_" + id).innerText = (calories * count.value).toFixed(2);
         var cc = document.getElementsByClassName("calories_td");
-        var sum = 0;
+        sum = 0;
         for (var i = 0; i < cc.length; i++) {
             sum = (parseFloat(sum) + parseFloat(cc[i].innerText)).toFixed(2);
         }
         //alert(sum);
-        document.getElementById("recipe-calories").value = sum.toString();
+        document.getElementById("recipe-calories").value = parseInt(sum, 10);
     }
     unit.style.width = "160px";
     unit.innerText = unit_name;

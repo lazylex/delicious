@@ -44,19 +44,13 @@ $this->title = "Добавить рецепт";
         $color = ConverterUtil::CaloriesToColor($ing_item['calories']);
 
         /* Очень калорийные продукты выведутся на красных кнопках, лучше им поставить светлый цвет текста*/
-        $ing_item['calories'] <3 ? $but_text_color = 'color: darkgray;' : $but_text_color = '';
+        $ing_item['calories'] >5 ? $but_text_color = 'color: white;' : $but_text_color = '';
         $unit_str = $unit[$ing_item['unit_id']];
         $buttonsByCategory[$ing_item['product_category_id']][] = "<button 
             type='button'
             style='
-            width: 32%;
-                   margin: 5px;
-                   height: 60px;
-color: white;
-                     border: solid white 2px;
-                     box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.20);
-                       background:{$color};
-                        {$but_text_color};'
+            background:{$color};
+            {$but_text_color};'
 
             name='{$nice_name}'
             id=ing_but_{$ing_item['ingredient_id']}
@@ -76,7 +70,7 @@ color: white;
 
     <div class="row">
 
-        <div class="col-lg-6" >
+        <div class="col-lg-9" >
 
             <?= $form->
             field($model, 'category_id')->
@@ -107,7 +101,7 @@ color: white;
 
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'calories')->textInput(['value'=>0]) ?>
+            <?= $form->field($model, 'calories',['template' => '{input}'])->hiddenInput(['value'=>0]) ?>
 
             <?= $form->field($model, 'time')->textInput() ?>
 
@@ -148,9 +142,10 @@ color: white;
 
         </div>
 
-        <div class="col-lg-6" id="ing_but_div">
-            <div style="background: rgba(255,255,255,0.5); padding: 1px; border-radius: 5px; box-shadow: 0 0 25px rgba(255,255,255,0.5); text-align: center">
-                <p><strong>Выберите ингредиенты, необходимые для приготовления блюда:</strong></p>
+
+        <div class="col-lg-3" id="ing_but_div">
+
+                <div class="accordion">
                 <?php
                 /* Вывожу кнопки с ингредиентами, используя разбивку по категориям */
                 foreach ($buttonsByCategory as $prod_cat_id => $but_array) {
@@ -172,17 +167,16 @@ color: white;
                             $background = 'antiquewhite';
                             break;
                     }
-                    echo "<div style='background:{$background}; padding-bottom: 25px; padding-top: 5px; margin: auto;   box-shadow: 0 0 25px {$background}; text-align: center'>
-                <p><strong>".mb_strtoupper($product_category_name[$prod_cat_id],'UTF-8')."</strong></p>
-                <div style=' text-align: left;'>";
+                    echo "<h3 style='background: {$background}'>".mb_strtoupper($product_category_name[$prod_cat_id],'UTF-8')."</h3>";
+                    echo "<div>";
+
                     foreach ($but_array as $buttons)
                         echo $buttons;
-                    echo "</div>
-            </div><br>";
+                    echo "</div>";
                 }
 
                 ?>
-            </div>
+
         </div>
 
 

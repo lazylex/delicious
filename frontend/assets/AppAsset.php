@@ -13,9 +13,11 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
+        'css/recipe_add.css',
     ];
     public $js = [
         'js/Ingredient.js',
+        'js/recipe_add.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
