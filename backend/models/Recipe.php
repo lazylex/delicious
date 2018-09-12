@@ -45,6 +45,7 @@ class Recipe extends \yii\db\ActiveRecord
             [['article', 'category_id','name'], 'required'],
             [['article'], 'string'],
             [['name', 'annotation'], 'string', 'max' => 255],
+            [['calories'],'compare', 'compareValue' => 1, 'operator' => '>=', 'type' => 'number','message' => 'Калорийность рецепта не может быть нулевой. Добавьте ингредиенты.'],
             [['author'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['author' => 'id']],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'category_id']],
             [['holiday_id'], 'exist', 'skipOnError' => true, 'targetClass' => Holidays::className(), 'targetAttribute' => ['holiday_id' => 'holiday_id']],

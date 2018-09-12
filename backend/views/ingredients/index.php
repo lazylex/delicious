@@ -25,8 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'recipe_id',
-            'ingredient_id',
+            ['attribute' =>
+                    'recipe_id',
+                    'value'=>'recipe.name',
+                    'label'=>'Название рецепта'
+            ],
+            ['attribute' =>'ingredient_id',
+                'value'=>'ingredient.name',
+                'label'=>'Название ингредиента'
+            ],
             'count',
 
             ['class' => 'yii\grid\ActionColumn'],

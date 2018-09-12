@@ -12,7 +12,48 @@ class m180911_100905_alter_ingredients extends Migration
      */
     public function safeUp()
     {
-        $this->dropForeignKey('fk_recipe_id');
+        $this->dropForeignKey(
+            'fk_ingredient_id',
+            'Ingredients'
+        );
+
+        $this->dropForeignKey(
+            'fk_recipe_id',
+            'Ingredients'
+        );
+
+
+        $this->dropTable("Ingredients");
+
+        $this->createTable("Ingredients",
+            [
+                'recipe_id' => $this->smallInteger()->unsigned()->notNull(),
+                'ingredient_id' => $this->smallInteger()->unsigned()->notNull(),
+                'count' => $this->integer()->notNull()->defaultValue(1)->unsigned(),
+                'PRIMARY KEY(recipe_id, ingredient_id)',
+            ]);
+
+        $this->alterColumn('Ingredients','count','DECIMAL(4, 1)');
+
+        $this->addForeignKey(
+            'fk_ingredient_id',
+            'Ingredients',
+            'ingredient_id',
+            'Ingredient',
+            'ingredient_id',
+            'CASCADE',
+            'CASCADE'
+        );
+
+        $this->addForeignKey(
+            'fk_recipe_id',
+            'Ingredients',
+            'recipe_id',
+            'Recipe',
+            'recipe_id',
+            'CASCADE',
+            'CASCADE'
+        );
 
     }
 

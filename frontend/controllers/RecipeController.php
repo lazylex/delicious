@@ -40,23 +40,28 @@ class RecipeController extends Controller
             /*return $this->redirect(['view', 'id' => $model->ingredient_id]);*/
             //Debug::display($model->recipe_id);
             $ingredient = $_POST['ingredient'];
-            Debug::display($ingredient);
+            //Debug::display($ingredient);
 
             foreach ($ingredient as $ing_id => $count) {
                 $ing = new Ingredients();
                 $ing->recipe_id = $model->recipe_id;
                 $ing->ingredient_id = $ing_id;
                 $ing->count = $count;
-                if ($ing->validate()) {
-                    Debug::display($ing->save());
-
+                if ($ing->validate())
+                {
+                    $ing->save();
                 }
-
+                else
+                {
+                    $recipe = Recipe::findOne($model->recipe_id);
+                    $recipe->delete();
+                    Yii::$app->session->setFlash('danger','При сохранении произошла ошибка! Рецепт не сохранен.');
+                    return $this->render('add', compact('model', 'category', 'holidays', 'ingredient', 'prod_cat', 'unit'));
+                }
             }
-            die();
-            //return $this->redirect(['view', 'id' => $model->recipe_id]);
+            Yii::$app->session->setFlash('success','Рецепт успешно добавлен!');
+            return $this->redirect(['index']);
         }
-
 
         return $this->render('add', compact('model', 'category', 'holidays', 'ingredient', 'prod_cat', 'unit'));
     }

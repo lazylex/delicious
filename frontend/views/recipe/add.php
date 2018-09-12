@@ -101,14 +101,13 @@ $this->title = "Добавить рецепт";
 
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'calories',['template' => '{input}'])->hiddenInput(['value'=>0]) ?>
-
             <?= $form->field($model, 'time')->textInput() ?>
 
             <?= ''//$form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/])           ?>
 
             <?= $form->field($model, 'annotation')->textInput(['maxlength' => true]) ?>
 
+            <?= $form->field($model, 'calories',['template' => '{input}{error}'])->hiddenInput(['value'=>0]) ?>
             <div style="height: 1px; padding: 10px; border-radius: 5px; background:white; visibility: hidden;  box-shadow: 0 0 20px rgba(0,0,0,0.5);  text-align: center"
                  id="added_ing_div">
                 <p style="padding-top: 5px"><strong>Необходимые для приготовления ингредиенты:</strong></p>

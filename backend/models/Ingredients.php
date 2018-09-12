@@ -33,7 +33,7 @@ class Ingredients extends \yii\db\ActiveRecord
             [['recipe_id', 'ingredient_id'], 'required'],
             [['recipe_id', 'ingredient_id'], 'integer'],
             [['count'], 'number'],
-            [['recipe_id'], 'unique'],
+           /* [['recipe_id'], 'unique'],*/
             [['recipe_id', 'ingredient_id'], 'unique', 'targetAttribute' => ['recipe_id', 'ingredient_id']],
             [['ingredient_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ingredient::className(), 'targetAttribute' => ['ingredient_id' => 'ingredient_id']],
             [['recipe_id'], 'exist', 'skipOnError' => true, 'targetClass' => Recipe::className(), 'targetAttribute' => ['recipe_id' => 'recipe_id']],
@@ -66,5 +66,10 @@ class Ingredients extends \yii\db\ActiveRecord
     public function getRecipe()
     {
         return $this->hasOne(Recipe::className(), ['recipe_id' => 'recipe_id']);
+    }
+
+    public static function primaryKey()
+    {
+        return ['recipe_id', 'ingredient_id'];
     }
 }
