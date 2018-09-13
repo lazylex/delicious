@@ -1,5 +1,8 @@
 function addIngredient(id, name, nice_name, color, unit_name, calories) {
     document.getElementById(name).style.display = 'none';
+    //document.getElementById(name).style.visibility='hidden';
+    //document.getElementById(name).style.opacity=0;
+    document.getElementById(name).className = '';//хз почему, но если не сбросить класс, то элемент списка не исчезнет
     document.getElementById("added_ing_div").style.visibility = 'visible';
     document.getElementById("added_ing_div").style.height = 'auto';
     document.getElementById("added_ing_div").style.marginTop = '20px';
@@ -29,6 +32,7 @@ function addIngredient(id, name, nice_name, color, unit_name, calories) {
 
         document.getElementById("ing_row_" + id).remove();
         document.getElementById("ing_but_" + id).style.display = 'inline';
+        document.getElementById(name).className = 'list-group-item d-flex justify-content-between align-items-center list-group-item-can-change-back';
         if (document.getElementById('added_ing').childElementCount == 0) {
             sum = 0;
             document.getElementById("added_ing_div").style.marginTop = '0px';

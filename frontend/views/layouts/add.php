@@ -60,11 +60,13 @@ AppAsset::register($this);
                     </li>
                 <?php endif; ?>
             </ul>
-            <form class="form-inline my-2 my-lg-0" target="<?= \yii\helpers\Url::to(['/site/logout']) ?>">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit" formmethod="post">Выход
-                    (<?= Yii::$app->user->identity->username ?>)
-                </button>
-            </form>
+            <?php if (!Yii::$app->user->isGuest): ?>
+                <form class="form-inline my-2 my-lg-0" target="<?= \yii\helpers\Url::to(['/site/logout']) ?>">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit" formmethod="post">Выход
+                        (<?= Yii::$app->user->identity->username ?>)
+                    </button>
+                </form>
+            <?php endif; ?>
         </div>
     </nav>
 

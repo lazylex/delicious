@@ -61,17 +61,15 @@ $this->title = "Добавить рецепт";
              </button>";*/
 
         $buttonsByCategory[$ing_item['product_category_id']][] = "
-        
-        <li class='list-group-item d-flex justify-content-between align-items-center list-group-item-can-change-back'
-            id=ing_but_{$ing_item['ingredient_id']}
+        <li id=ing_but_{$ing_item['ingredient_id']} class='list-group-item d-flex justify-content-between align-items-center list-group-item-can-change-back'
+            
             onClick=addIngredient('{$ing_item['ingredient_id']}','ing_but_{$ing_item['ingredient_id']}','{$nice_name}','{$color}','{$unit_str}','{$ing_item['calories']}')
             style='cursor: pointer'>
         <strong>" . mb_strtoupper($ing_item['name'], "UTF-8") . "</strong>
-        <span>
-        <span class='badge badge-primary badge-pill' style='background: {$color}'>" . $ing_item['calories'] . " ккал</span>/
+
+        <span class='badge badge-primary badge-pill' style='background: {$color}'>" . $ing_item['calories'] . " ккал / ". $unit_str ."</span>
         
-        <span class='badge badge-secondary badge-pill'>" . $unit_str . "</span>
-        </span>
+        
         </li>";
     }
 
