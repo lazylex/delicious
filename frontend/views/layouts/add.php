@@ -24,50 +24,51 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body  style="background: linear-gradient(to right, #b5bdc8 0%, #828c95 36%, white 100%);">
+<body>
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="<?= Yii::$app->homeUrl ?>"><?= Yii::$app->name ?></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+                aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    $menuItems = [
-        ['label' => 'Домашняя страница', 'url' => ['/site/index']],
-        ['label' => 'Справка', 'url' => ['/site/about']],
-        ['label' => 'Контакты', 'url' => ['/site/contact']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Зарегистрироваться', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
-    } else {
-        if (Yii::$app->user->identity->username == 'admin') {
-            $menuItems[] = ['label' => 'Административная панель', 'url' => ['/backend/site']];
-            $submitButtonText = 'Выйти из учетной записи администратора';
-        } else
-            $submitButtonText = 'Выход (' . Yii::$app->user->identity->username . ')';
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                $submitButtonText,
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
-    ]);
-    NavBar::end();
-    ?>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="<?= Yii::$app->homeUrl ?>">Домой</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= \yii\helpers\Url::to(['/site/about']) ?>">Справка</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= \yii\helpers\Url::to(['/site/contact']) ?>">Контакты</a>
+                </li>
+                <?php if (Yii::$app->user->isGuest) : ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= \yii\helpers\Url::to(['/site/signup']) ?>">Зарегистрироваться</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= \yii\helpers\Url::to(['/site/login']) ?>">Войти</a>
+                    </li>
+                <?php elseif (Yii::$app->user->identity->username == 'admin'): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= \yii\helpers\Url::to(['/admin']) ?>">Административная
+                            панель</a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" target="<?= \yii\helpers\Url::to(['/site/logout']) ?>">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit" formmethod="post">Выход
+                    (<?= Yii::$app->user->identity->username ?>)
+                </button>
+            </form>
+        </div>
+    </nav>
 
-    <div style="width: 90%; margin: auto; margin-top: 60px">
+    <div style="width: 95%; margin: auto; margin-top: 60px">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>

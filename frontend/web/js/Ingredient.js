@@ -23,7 +23,7 @@ function addIngredient(id, name, nice_name, color, unit_name, calories) {
     del.type = 'button';
     del.name = 'del_but_' + id;
     del.innerText = 'Удалить';
-    del.className = "btn";
+    del.className = "btn btn-outline-danger";
     del.onclick = function () {
         sum = parseInt(sum - document.getElementById("cal_" + id).innerText, 10);
 
@@ -45,6 +45,8 @@ function addIngredient(id, name, nice_name, color, unit_name, calories) {
     count.style.textAlign = 'center';
     count_td.style.width = "60px";
     count.type = "number";
+    count.min='1';
+    count.max='5000';
     count.onchange = function () {
         document.getElementById("cal_" + id).innerText = (calories * count.value).toFixed(2);
         var cc = document.getElementsByClassName("calories_td");
@@ -61,9 +63,11 @@ function addIngredient(id, name, nice_name, color, unit_name, calories) {
     td_nice_name.innerText = nice_name;
     td_del.appendChild(del);
     tr.id = "ing_row_" + id;
-    tr.style.background = color;
+    //tr.style.background = color;
     count_td.appendChild(count);
     td_cal.innerText = calories;
+    td_cal.style.color=color;
+    td_cal.style.fontWeight='bold';
     td_cal.className = 'calories_td';
     td_cal.id = 'cal_' + id;
 
