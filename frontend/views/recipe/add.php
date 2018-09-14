@@ -64,10 +64,10 @@ $this->title = "Добавить рецепт";
         <li id=ing_but_{$ing_item['ingredient_id']} class='list-group-item d-flex justify-content-between align-items-center list-group-item-can-change-back'
             
             onClick=addIngredient('{$ing_item['ingredient_id']}','ing_but_{$ing_item['ingredient_id']}','{$nice_name}','{$color}','{$unit_str}','{$ing_item['calories']}')
-            style='cursor: pointer'>
+            style='cursor: pointer;'>
         <strong>" . mb_strtoupper($ing_item['name'], "UTF-8") . "</strong>
 
-        <span class='badge badge-primary badge-pill' style='background: {$color}'>" . $ing_item['calories'] . " ккал / ". $unit_str ."</span>
+        <span class='badge badge-primary badge-pill' style='background: {$color}; color: black'>" . $ing_item['calories'] . " ккал / " . $unit_str . "</span>
         
         
         </li>";
@@ -80,65 +80,54 @@ $this->title = "Добавить рецепт";
         $product_category_name[$pc['product_category_id']] = $pc['name'];
     }
     ?>
+
     <div class="row">
-        <div class="col-lg-3" id="ing_but_div">
-            <div class="accordion">
-                <?php
-                /* Вывожу кнопки с ингредиентами, используя разбивку по категориям */
-                foreach ($buttonsByCategory as $prod_cat_id => $but_array) {
-                    echo "<h3  class='btn btn-primary btn-lg btn-block'>" . mb_strtoupper($product_category_name[$prod_cat_id], 'UTF-8') . "</h3>";
-                    echo "<ul class='list-group'>";
 
-                    foreach ($but_array as $buttons)
-                        echo $buttons;
-                    echo "</ul>";
-                }
+        <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="card border-dark mb-3">
+                <div class="card-header">Информация о рецепте:</div>
+                <div class="card-body">
+                    <?= $form->
+                    field($model, 'category_id')->
+                    dropDownList($category->column(),
+                        [
+                            'options' =>
+                                [
+                                    $cat => [
+                                        'selected' => true
+                                    ]
+                                ]
+                        ])->label('Выберите категорию'); ?>
 
-                ?>
+                    <?= $form->
+                    field($model, 'holiday_id')->
+                    dropDownList($holidays->find()->select(['name', 'holiday_id'])->orderBy('holiday_id')->
+                    column(),
+                        [
+                            'prompt' => 'Выберите праздник, для которого данное блюдо является традиционным',
+                            'options' =>
+                                [
+                                    $hol => [
+                                        'selected' => true
+                                    ]
+                                ]
+                        ])->
+                    label('Выберите праздник'); ?>
+
+                    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
+                    <?= $form->field($model, 'time')->textInput() ?>
+
+                    <?= ''//$form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/])                    ?>
+
+                    <?= $form->field($model, 'annotation')->textInput(['maxlength' => true]) ?>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-9">
-            <?= $form->
-            field($model, 'category_id')->
-            dropDownList($category->column(),
-                [
-                    'options' =>
-                        [
-                            $cat => [
-                                'selected' => true
-                            ]
-                        ]
-                ])->label('Выберите категорию'); ?>
-
-            <?= $form->
-            field($model, 'holiday_id')->
-            dropDownList($holidays->find()->select(['name', 'holiday_id'])->orderBy('holiday_id')->
-            column(),
-                [
-                    'prompt' => 'Выберите праздник, для которого данное блюдо является традиционным',
-                    'options' =>
-                        [
-                            $hol => [
-                                'selected' => true
-                            ]
-                        ]
-                ])->
-            label('Выберите праздник'); ?>
-
-            <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-            <?= $form->field($model, 'time')->textInput() ?>
-
-            <?= ''//$form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/])              ?>
-
-            <?= $form->field($model, 'annotation')->textInput(['maxlength' => true]) ?>
-
-
             <div class="card border-dark mb-3">
                 <div class="card-header">Необходимые для приготовления ингредиенты:</div>
-                <div class="card-body">
+                <div class="card-body" style="background: linear-gradient(to top, lightgreen 50px, white 32px)">
                     <?= $form->field($model, 'calories', ['template' => '{input}{error}'])->hiddenInput(['value' => 0]) ?>
-                    <table class="table" id="added_ing_div" style="visibility: hidden;">
+                    <table class="table" id="added_ing_div" style="display: none;">
                         <thead>
                         <tr>
                             <th scope="col">Название</th>
@@ -152,20 +141,68 @@ $this->title = "Добавить рецепт";
                         </tbody>
                     </table>
 
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_add_ing"
+                            style="font-size: large; width: 56px; height: 56px; border-radius: 50%; float: right"
+                            onclick="{document.getElementById('modal_add_ing').style.display='inline';}">+
+                    </button>
+                    <div class="modal" id="modal_add_ing" role="dialog" tabindex="-1" aria-labelledby="modal_add_ing"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Выберите необходимые ингредиенты:</h5>
+                                    <button onclick="{document.getElementById('modal_add_ing').style.display='none';}"
+                                            type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" style="max-height: 550px; overflow: auto">
+                                    <div class="accordion">
+                                        <?php
+                                        /* Вывожу кнопки с ингредиентами, используя разбивку по категориям */
+                                        foreach ($buttonsByCategory as $prod_cat_id => $but_array) {
+                                            echo "<h3  class='btn btn-primary btn-lg btn-block'>" . mb_strtoupper($product_category_name[$prod_cat_id], 'UTF-8') . "</h3>";
+                                            echo "<ul class='list-group'>";
+
+                                            foreach ($but_array as $buttons)
+                                                echo $buttons;
+                                            echo "</ul>";
+                                        }
+
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                            onclick="{document.getElementById('modal_add_ing').style.display='none';}">
+                                        Закрыть
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="card border-dark mb-3">
                 <div class="card-header">Рецепт:</div>
                 <div style="padding: 20px">
                     <?= $form->field($model, 'article')->textarea(['rows' => 6]) ?>
                 </div>
             </div>
-            <div class="form-group">
-                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
-            </div>
+
         </div>
-
-
-        <?php ActiveForm::end(); ?>
     </div>
+
+
+
+    <div class="form-group">
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+    </div>
+
+
+    <?php ActiveForm::end(); ?>
+
+
 </div>

@@ -37,5 +37,5 @@
 }
 
 .list-group-item-can-change-back:hover {
-    background: rgba(0, 0, 0, 0.03);
+    background: rgb(247, 247, 247);
 }

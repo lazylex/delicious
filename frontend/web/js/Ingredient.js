@@ -3,7 +3,7 @@ function addIngredient(id, name, nice_name, color, unit_name, calories) {
     //document.getElementById(name).style.visibility='hidden';
     //document.getElementById(name).style.opacity=0;
     document.getElementById(name).className = '';//хз почему, но если не сбросить класс, то элемент списка не исчезнет
-    document.getElementById("added_ing_div").style.visibility = 'visible';
+    document.getElementById("added_ing_div").style.display = 'inline-table';
     document.getElementById("added_ing_div").style.height = 'auto';
     document.getElementById("added_ing_div").style.marginTop = '20px';
     document.getElementById("added_ing_div").style.marginBottom = '20px';
@@ -35,10 +35,9 @@ function addIngredient(id, name, nice_name, color, unit_name, calories) {
         document.getElementById(name).className = 'list-group-item d-flex justify-content-between align-items-center list-group-item-can-change-back';
         if (document.getElementById('added_ing').childElementCount == 0) {
             sum = 0;
-            document.getElementById("added_ing_div").style.marginTop = '0px';
-            document.getElementById("added_ing_div").style.marginBottom = '0px';
-            document.getElementById("added_ing_div").style.visibility = 'hidden';
-            document.getElementById("added_ing_div").style.height = '1px';
+
+            document.getElementById("added_ing_div").style.display = 'none';
+
             //document.getElementById("ing_but_div").className="col-lg-12";
         }
         document.getElementById("recipe-calories").value = sum;

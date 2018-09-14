@@ -34,6 +34,7 @@ foreach ($unit_filter as &$unit_item)
     <p>
         <?= Html::a('Добавить ингредиент', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+
     <div style="background: lightsteelblue; border: grey solid 1px; padding: 4px; box-shadow: 0 0 5px 2px lightslategrey;">
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
