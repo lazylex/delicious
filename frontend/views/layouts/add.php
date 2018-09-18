@@ -24,6 +24,7 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
+<!--<body style="background: Url('<?php //echo \yii\helpers\Url::to( ['/images/background.svg'])?>') no-repeat">-->
 <body style="background: Url('<?= \yii\helpers\Url::to( ['/images/background.jpg'])?>') no-repeat">
 <?php $this->beginBody() ?>
 
@@ -70,7 +71,7 @@ AppAsset::register($this);
         </div>
     </nav>
 
-    <div style="width: 90%; margin: auto; margin-top: 60px">
+    <div class="col-12 col-lg-8" style=" margin: auto; margin-top: 60px">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>

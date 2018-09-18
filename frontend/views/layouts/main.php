@@ -24,7 +24,7 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+<body style="background: Url('<?= \yii\helpers\Url::to( ['/images/background.svg'])?>') no-repeat">
 <?php $this->beginBody() ?>
 
 <div class="wrap">

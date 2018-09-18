@@ -20,6 +20,7 @@ class AppAsset extends AssetBundle
         'js/recipe_add.js',
     ];
     public $depends = [
+        'yii\bootstrap\BootstrapPluginAsset',
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
     ];

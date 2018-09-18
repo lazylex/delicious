@@ -1,4 +1,5 @@
 function addIngredient(id, name, nice_name, color, unit_name, calories) {
+
     document.getElementById(name).style.display = 'none';
     //document.getElementById(name).style.visibility='hidden';
     //document.getElementById(name).style.opacity=0;
@@ -69,7 +70,7 @@ function addIngredient(id, name, nice_name, color, unit_name, calories) {
     //tr.style.background = color;
     count_td.appendChild(count);
     td_cal.innerText = calories;
-    td_cal.style.color=color;
+    //td_cal.style.color=color;
     td_cal.style.fontWeight='bold';
     td_cal.className = 'calories_td';
     td_cal.id = 'cal_' + id;

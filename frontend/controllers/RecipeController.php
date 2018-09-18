@@ -26,7 +26,6 @@ class RecipeController extends Controller
     public function actionAdd()
     {
         $this->layout = 'add';
-        //$category = new Category();
         $category = Category::find()->select(['name', 'category_id'])->orderBy('category_id');
         $holidays = new Holidays();
         $ingredient = Ingredient::find()->asArray()->orderBy('name')->all();
@@ -37,10 +36,7 @@ class RecipeController extends Controller
             $unit[$unit_item['unit_id']] = ConverterUtil::UnitToString($unit_item['name'], 1, false);
         }
         if (isset($_POST['ingredient']) && $model->load(Yii::$app->request->post()) && $model->save()) {
-            /*return $this->redirect(['view', 'id' => $model->ingredient_id]);*/
-            //Debug::display($model->recipe_id);
             $ingredient = $_POST['ingredient'];
-            //Debug::display($ingredient);
 
             foreach ($ingredient as $ing_id => $count) {
                 $ing = new Ingredients();
@@ -62,7 +58,6 @@ class RecipeController extends Controller
             Yii::$app->session->setFlash('success','Рецепт успешно добавлен!');
             return $this->redirect(['index']);
         }
-
         return $this->render('add', compact('model', 'category', 'holidays', 'ingredient', 'prod_cat', 'unit'));
     }
 

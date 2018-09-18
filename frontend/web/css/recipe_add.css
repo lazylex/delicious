@@ -39,3 +39,26 @@
 .list-group-item-can-change-back:hover {
     background: rgb(247, 247, 247);
 }
+
+.ingredient-form
+{
+    background: rgba(255,255,255,0.9);
+    padding: 15px;
+    border: rgb(34,139,34) solid 1px;
+    border-radius: 5px;
+}
+
+.btn-num-green {
+opacity: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    float: left;
+    margin-left: -3000px;
+}
+
+/*перебиваю фон за модальным окном. В стандарте стремный черный
+.modal-backdrop {
+    background: rgba(0,0,0,0.3) !important;
+}*/
