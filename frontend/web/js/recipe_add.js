@@ -1,20 +1,20 @@
 var sum=0;
-for(var i=1;i<8;i++)
+for(var i=7;i>0;i--)
 {
     $("#btn-num-green"+i.toString(10)).animate({
         opacity: 1,
-        marginLeft: "-30px",
-    }, 700 +i*300);
+        marginTop: "-6px",
+    }, 700 +(8-i)*300);
 }
 
 $("#add_button")
     .animate({
             marginLeft: "-10%",
         }
-    ,2500)
+    ,1000)
     .animate({
     marginLeft: "50%",
-}, 1000);
+}, 500);
 
 
 $(document).ready(function(){

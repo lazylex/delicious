@@ -55,7 +55,15 @@ opacity: 0;
     border-radius: 50%;
     border: none;
     float: left;
-    margin-left: -3000px;
+    margin-top: -3000px;
+    margin-left: -30px;
+}
+
+button:active, button:focus {
+    outline: none !important;
+}
+button::-moz-focus-inner {
+    border: 0 !important;
 }
 
 /*перебиваю фон за модальным окном. В стандарте стремный черный

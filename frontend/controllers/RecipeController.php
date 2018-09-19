@@ -20,11 +20,17 @@ use common\components\Debug;
 use yii\web\Controller;
 use Yii;
 use \common\components\ConverterUtil;
+use yii\filters\AccessControl;
 
 class RecipeController extends Controller
 {
     public function actionAdd()
     {
+        if(YII::$app->user->identity==null)
+        {
+            return $this->redirect(['site/login']);
+        }
+
         $this->layout = 'add';
         $category = Category::find()->select(['name', 'category_id'])->orderBy('category_id');
         $holidays = new Holidays();
