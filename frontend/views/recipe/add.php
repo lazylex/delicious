@@ -13,7 +13,7 @@ use yii\grid\GridView;
 use yii\data\ArrayDataProvider;
 use \common\components\Debug;
 use \common\components\ConverterUtil;
-
+use \common\widgets\TimeSet\TimeSetWidget;
 $this->title = "Добавить рецепт";
 ?>
 <!-- // https://bootswatch.com/materia/ -->
@@ -22,7 +22,7 @@ $this->title = "Добавить рецепт";
 
 
     <?php $form = ActiveForm::begin([
-        'id' => 'test-form',
+        'id' => 'recipe-form',
         'options' => ['class' => 'form-horizontal'],
         'fieldConfig' => [
             'template' => '{input}<span style="color: orangered">{error}</span>',
@@ -137,7 +137,8 @@ $this->title = "Добавить рецепт";
             Время приготовления:
         </div>
         <div class="col-9">
-            <?= $form->field($model, 'time')->textInput() ?>
+            <input type="number" name="time" id="time">
+            <?= $form->field($model, 'time')->widget(TimeSetWidget::className(),['model'=>$model,'attribute'=>'time']) ?>
         </div>
     </div>
     <?= ''//$form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/])                                  ?>
@@ -221,7 +222,7 @@ $this->title = "Добавить рецепт";
 
     </div>
     <div class="clearfix"></div>
-    <br>
+
     <div class="">
 
         <button class="btn-success  btn-num-green" id="btn-num-green7" type="button">
@@ -229,12 +230,12 @@ $this->title = "Добавить рецепт";
         </button>&nbsp;
         Полный текст рецепта:
 
-        <div style="padding: 20px">
+        <div style="padding: 20px; margin-bottom: 20px; margin-top: 20px; background: rgba(255,255,255,0.8); border-radius: 3px; border: lightgrey solid 1px">
             <?= $form->field($model, 'article')->textarea(['rows' => 6]) ?>
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" style="text-align: right">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 </div>
