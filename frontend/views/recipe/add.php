@@ -137,8 +137,7 @@ $this->title = "Добавить рецепт";
             Время приготовления:
         </div>
         <div class="col-9">
-            <input type="number" name="time" id="time">
-            <?= $form->field($model, 'time')->widget(TimeSetWidget::className(),['model'=>$model,'attribute'=>'time']) ?>
+            <?= $form->field($model, 'time')->widget(TimeSetWidget::className()) ?>
         </div>
     </div>
     <?= ''//$form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/])                                  ?>
