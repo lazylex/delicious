@@ -12,33 +12,38 @@ namespace common\widgets\TimeSet;
 use common\components\Debug;
 use yii\base\Widget;
 use yii\bootstrap\InputWidget;
+use common\widgets\TimeSet\TimeSetAsset;
 
 class TimeSetWidget extends InputWidget
 {
-    private $input_name;
+    private $model_name, $daySet, $hourSet, $minuteSet;
     public function init()
     {
         parent::init();
+        TimeSetAsset::register($this->getView());
         $className=explode("\\",get_class($this->model));
-        $this->input_name=$className[count($className)-1]."[{$this->attribute}]";
+        $this->model_name=$className[count($className)-1];
+        $inputName=$className[count($className)-1].$this->attribute;
+        $this->daySet='daySet'.$inputName;
+        $this->hourSet='hourSet'.$inputName;
+        $this->minuteSet='minuteSet'.$inputName;
     }
 
     public function run()
     {
-
-
-
-        echo "<input type='hidden' id='{$this->input_name}' name='$this->input_name' value='0'>";
+        echo "<input type='hidden' id='{$this->model_name}-{$this->attribute}' name='{$this->model_name}"."[{$this->attribute}]"."' value='0'>";
         echo "<div class='row col-6'>";
-        echo "<div class='col-4'><input type='number' min='0' max='31' class='form-control' placeholder='дней' title='дней' id='day-set' style='text-align: center'   onchange='{
-        document.getElementById(\"{$this->input_name}\").value = parseInt(document.getElementById(\"day-set\").value*60*24+ document.getElementById(\"hour-set\").value*60+document.getElementById(\"minute-set\").value, 10);:
-        }'></div>";
-        echo "<div class='col-4'><input type='number' min='0' max='23' class='form-control' placeholder='часов' title='часов' id='hour-set' style='text-align: center' onchange='{
-        document.getElementById(\"{$this->input_name}\").value = parseInt(document.getElementById(\"day-set\").value*60*24+ document.getElementById(\"hour-set\").value*60+document.getElementById(\"minute-set\").value, 10);
-}'></div>";
-        echo "<div class='col-4'><input type='number' min='0' max='59' class='form-control' placeholder='минут' title='минут' id='minute-set'  style='text-align: center'  onchange='{
-        document.getElementById(\"{$this->input_name}\").value = parseInt(document.getElementById(\"day-set\").value*60*24+ document.getElementById(\"hour-set\").value*60+document.getElementById(\"minute-set\").value, 10);:
-        }'></div>";
+        echo "<div class='col-4'>
+                <input type='number' min='0' max='31' class='form-control' placeholder='дней' title='дней' id='{$this->daySet}' style='text-align: center'
+                onchange=\"{recountTime('{$this->model_name}-{$this->attribute}','{$this->daySet}','{$this->hourSet}','{$this->minuteSet}');}\">
+                </div>";
+        echo "<div class='col-4'>
+                <input type='number' min='0' max='23' class='form-control' placeholder='часов' title='часов' id='{$this->hourSet}' style='text-align: center' 
+                onchange=\"{recountTime('{$this->model_name}-{$this->attribute}', '{$this->daySet}', '{$this->hourSet}', '{$this->minuteSet}');}\">
+                </div>";
+        echo "<div class='col-4'><input type='number' min='0' max='59' class='form-control' placeholder='минут' title='минут' id='{$this->minuteSet}'  style='text-align: center'  
+                onchange=\"{recountTime('{$this->model_name}-{$this->attribute}', '{$this->daySet}', '{$this->hourSet}', '{$this->minuteSet}');}\">
+                </div>";
         echo "</div>";
     }
 }
