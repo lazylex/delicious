@@ -24,6 +24,8 @@ use yii\filters\AccessControl;
 
 class RecipeController extends Controller
 {
+    public $layout = 'recipe';
+
     public function actionAdd()
     {
         if(YII::$app->user->identity==null)
@@ -31,7 +33,7 @@ class RecipeController extends Controller
             return $this->redirect(['site/login']);
         }
 
-        $this->layout = 'add';
+
         $category = Category::find()->select(['name', 'category_id'])->orderBy('category_id');
         $holidays = new Holidays();
         $ingredient = Ingredient::find()->asArray()->orderBy('name')->all();
@@ -65,6 +67,11 @@ class RecipeController extends Controller
             return $this->redirect(['index']);
         }
         return $this->render('add', compact('model', 'category', 'holidays', 'ingredient', 'prod_cat', 'unit'));
+    }
+
+    public function actionSearch()
+    {
+        return $this->render('search');
     }
 
     public function actionIndex()

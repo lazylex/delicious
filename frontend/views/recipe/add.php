@@ -8,13 +8,11 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\ArrayHelper;
-use yii\grid\GridView;
-use yii\data\ArrayDataProvider;
-use \common\components\Debug;
 use \common\components\ConverterUtil;
 use \common\widgets\TimeSet\TimeSetWidget;
+
 $this->title = "Добавить рецепт";
+$this->params['breadcrumbs'][] = ' \\ '.$this->title;
 ?>
 <!-- // https://bootswatch.com/materia/ -->
 
@@ -140,7 +138,7 @@ $this->title = "Добавить рецепт";
             <?= $form->field($model, 'time')->widget(TimeSetWidget::className()) ?>
         </div>
     </div>
-    <?= ''//$form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/])                                  ?>
+    <?= ''//$form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/])                                    ?>
 
     <div class="row">
         <div class="col-3">
@@ -154,9 +152,7 @@ $this->title = "Добавить рецепт";
         </div>
     </div>
     <br>
-    <div class="">
-
-
+    <div>
         <button class="btn-success btn-num-green" id="btn-num-green6" type="button">
             6
         </button>&nbsp;

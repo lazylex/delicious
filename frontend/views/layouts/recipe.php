@@ -42,6 +42,12 @@ AppAsset::register($this);
                     <a class="nav-link" href="<?= Yii::$app->homeUrl ?>">Домой</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="<?= \yii\helpers\Url::to(['/recipe/search']) ?>">Искать</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= \yii\helpers\Url::to(['/recipe/add']) ?>">Добавить</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="<?= \yii\helpers\Url::to(['/site/about']) ?>">Справка</a>
                 </li>
                 <li class="nav-item">
@@ -72,6 +78,7 @@ AppAsset::register($this);
     </nav>
 
     <div class="col-12 col-lg-8" style=" margin: auto; margin-top: 60px">
+
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>

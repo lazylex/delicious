@@ -5,5 +5,5 @@ use yii\helpers\Html;
 $this->title = 'Вкусняшки';
 ?>
 <div class="site-index">
-    <?= Html::a('Рецепты', \yii\helpers\Url::to(['/recipe']));?>
+
 </div>

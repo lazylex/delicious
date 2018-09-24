@@ -1,6 +1,8 @@
 <?php
+
 use \yii\helpers\Url;
 use \yii\helpers\Inflector;
+
 /* @var $this yii\web\View */
 
 $this->title = 'Административный раздел';
@@ -10,30 +12,37 @@ $this->title = 'Административный раздел';
     <div class="row">
 
         <div class="col-lg-6">
-            <div style="background: #cdc3b7; padding: 0; margin: 0; width: 90%">
-                <table class="table table-striped table-bordered">
-                    <thead style="background: black; color: antiquewhite">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Таблица</th>
-                        <th scope="col">Количество записей</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php $row_number = 0;
-                    foreach ($tableItemCount as $key => $count):?>
-                        <tr>
-                            <th scope="row"><?php $row_number++;
-                                echo $row_number ?></th>
-                            <td><a style="color: black"
-                                   href=" <?= Url::to(['/' .Inflector::camel2id($key)]) ?>"><?= $key ?></a>
-                            </td>
-                            <td><?= $count ?></td>
-                        </tr>
-                    <?php endforeach; ?>
+            <div class="card border-dark mb-3">
+                <div class="card-header">Таблицы БД</div>
 
-                    </tbody>
-                </table>
+                <div class="card-body">
+                    <div style=" padding: 0; margin: -15px; ">
+
+                        <table class="table table-striped table-bordered">
+                            <thead  class="table-primary">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Таблица</th>
+                                <th scope="col">Количество записей</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php $row_number = 0;
+                            foreach ($tableItemCount as $key => $count):?>
+                                <tr>
+                                    <th scope="row"><?php $row_number++;
+                                        echo $row_number ?></th>
+                                    <td><a style="color: black"
+                                           href=" <?= Url::to(['/' . Inflector::camel2id($key)]) ?>"><?= $key ?></a>
+                                    </td>
+                                    <td><?= $count ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-lg-6">

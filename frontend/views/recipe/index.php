@@ -6,5 +6,3 @@
  * Time: 10:34
  */
 use yii\helpers\Html;
-
-echo Html::a('Добавить рецепт', \yii\helpers\Url::to(['add']));
