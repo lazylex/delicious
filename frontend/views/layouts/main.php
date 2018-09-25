@@ -64,6 +64,43 @@ AppAsset::register($this);
                         </li>
                     <?php endif; ?>
                 </ul>
+
+                <div style="position: relative">
+                <input class="mr-sm-2" style="width: 250px; padding: 5px" type="text" placeholder="Поиск" id="searchInput"
+                       onkeyup="
+                       if(document.getElementById('searchInput').value.length<3)
+                           document.getElementById('searchResult').style.display='none';
+                       else
+                       $.ajax({
+                            url:'recipe/search',
+                            type: 'POST',
+                            data:
+                            {
+                                searchString:document.getElementById('searchInput').value
+                            },
+                            success: function (res) {
+                                //var ul=document.createElement('ul');
+                                //ul.innerHTML=res;
+                                if(res.toString().length<10)
+                                    return false;
+                                document.getElementById('searchResult').innerHTML=res;
+                                document.getElementById('searchResult').style.display='block';
+                                //alert(res);
+                            },
+                            error: function(){
+                                //alert('Error!');
+                            }
+                        }
+
+
+                        );
+                   return false;"
+
+                       onfocusout="document.getElementById('searchResult').style.display='none';"
+                >
+                    <ul class="nav nav-pills flex-column" id="searchResult" style="position: absolute; background: white; width: 120%; border: lightgrey solid 1px; border-radius: 3px; margin: 5px; display: none"></ul>
+                </div>
+
                 <?php if (!Yii::$app->user->isGuest): ?>
                     <form class="form-inline my-2 my-lg-0" target="<?= \yii\helpers\Url::to(['/site/logout']) ?>">
                         <button class="btn btn-secondary my-2 my-sm-0" type="submit" formmethod="post">Выход

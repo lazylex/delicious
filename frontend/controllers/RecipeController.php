@@ -28,8 +28,7 @@ class RecipeController extends Controller
 
     public function actionAdd()
     {
-        if(YII::$app->user->identity==null)
-        {
+        if (YII::$app->user->identity == null) {
             return $this->redirect(['site/login']);
         }
 
@@ -51,19 +50,16 @@ class RecipeController extends Controller
                 $ing->recipe_id = $model->recipe_id;
                 $ing->ingredient_id = $ing_id;
                 $ing->count = $count;
-                if ($ing->validate())
-                {
+                if ($ing->validate()) {
                     $ing->save();
-                }
-                else
-                {
+                } else {
                     $recipe = Recipe::findOne($model->recipe_id);
                     $recipe->delete();
-                    Yii::$app->session->setFlash('danger','При сохранении произошла ошибка! Рецепт не сохранен.');
+                    Yii::$app->session->setFlash('danger', 'При сохранении произошла ошибка! Рецепт не сохранен.');
                     return $this->render('add', compact('model', 'category', 'holidays', 'ingredient', 'prod_cat', 'unit'));
                 }
             }
-            Yii::$app->session->setFlash('success','Рецепт успешно добавлен!');
+            Yii::$app->session->setFlash('success', 'Рецепт успешно добавлен!');
             return $this->redirect(['index']);
         }
         return $this->render('add', compact('model', 'category', 'holidays', 'ingredient', 'prod_cat', 'unit'));
@@ -71,11 +67,47 @@ class RecipeController extends Controller
 
     public function actionSearch()
     {
+        if (Yii::$app->request->isAjax) {
+            $searchString = Yii::$app->request->post('searchString');
+            if($searchString==null)
+                return false;
+            $recipe = Recipe::find()->select(['name','recipe_id'])->where(['like', 'name', $searchString])->all();
+            $res='';
+            //Debug::display($recipe);
+            foreach ($recipe as $item) {
+                $res = $res . "<li class='nav-item'><a class='dropdown-item' href='/recipe/view?id={$item['recipe_id']}'> {$item['name']}</li>";
+            }
+            return $res;
+        }
+
         return $this->render('search');
     }
 
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionView($id)
+    {
+        //$model = $this->findModel($id);
+        //Debug::display($model);
+        if (!Yii::$app->cache->exists('Recipe_model_' . $id)) {
+            $model = $this->findModel($id);
+            Yii::$app->cache->set('Recipe_model_' . $id, $model);
+        } else
+            $model = Yii::$app->cache->get('Recipe_model_' . $id);
+        return $this->render('view', [
+            'model' => $model,
+        ]);
+    }
+
+    protected function findModel($id)
+    {
+        if (($model = Recipe::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('Запрашиваемая страница не существует.');
     }
 }
