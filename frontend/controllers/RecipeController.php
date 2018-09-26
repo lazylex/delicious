@@ -75,7 +75,7 @@ class RecipeController extends Controller
             $res='';
             //Debug::display($recipe);
             foreach ($recipe as $item) {
-                $res = $res . "<li class='nav-item'><a class='dropdown-item' href='/recipe/view?id={$item['recipe_id']}'> {$item['name']}</li>";
+                $res = $res . "<li class='nav-item'><a class='dropdown-item' style='width: 100%' href='/recipe/view?id={$item['recipe_id']}'> {$item['name']}</li>";
             }
             return $res;
         }
@@ -94,11 +94,34 @@ class RecipeController extends Controller
         //Debug::display($model);
         if (!Yii::$app->cache->exists('Recipe_model_' . $id)) {
             $model = $this->findModel($id);
-            Yii::$app->cache->set('Recipe_model_' . $id, $model);
+
+            if($model==null)
+            {
+                Yii::$app->session->setFlash('danger', 'Запрашиваемы рецепт отсутсвует!');
+                return $this->redirect(['index']);
+            }
+
+            Yii::$app->cache->set('Recipe_model_' . $id, $model,3600);
         } else
             $model = Yii::$app->cache->get('Recipe_model_' . $id);
+
+
+        /*
+        $ingredient = Ingredient::find()->asArray()->orderBy('name')->all();
+
+
+        */
+
+
+        $category=Category::findOne($model->category_id)->name;
+        $holiday=Holidays::findOne($model->holiday_id);
+        $ingredients=Ingredients::find()->where(['recipe_id'=>$model->recipe_id])->all();
+        $unit_array = Unit::find()->asArray()->all();
+
+        if($holiday!=null)
+            $holiday=$holiday->name;
         return $this->render('view', [
-            'model' => $model,
+            'model' => $model, 'category'=>$category, 'holiday'=>$holiday,'unit_array'=>$unit_array,'ingredients'=>$ingredients
         ]);
     }
 

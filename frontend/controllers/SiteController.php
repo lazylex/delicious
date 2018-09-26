@@ -82,6 +82,7 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout='main_dark';
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -150,6 +151,7 @@ class SiteController extends Controller
      */
     public function actionSignup()
     {
+        $this->layout='main_dark';
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
@@ -171,6 +173,7 @@ class SiteController extends Controller
      */
     public function actionRequestPasswordReset()
     {
+        $this->layout='main_dark';
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {

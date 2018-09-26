@@ -26,8 +26,9 @@ AppAsset::register($this);
     </head>
     <!--<body style="background: Url('<?php //echo \yii\helpers\Url::to( ['/images/background.svg'])?>') no-repeat">-->
     <body style="background: Url('<?= \yii\helpers\Url::to( ['/images/background.jpg'])?>') no-repeat">
-    <?php $this->beginBody() ?>
 
+    <?php $this->beginBody() ?>
+    <div style="width: 100%; height: 100%; background: rgba(100,100,100,0.5 )">
     <div class="wrap">
         <nav class="navbar navbar-expand-lg navbar-dark" style="background: forestgreen">
             <a class="navbar-brand" href="<?= Yii::$app->homeUrl ?>"><?= Yii::$app->name ?></a>
@@ -65,7 +66,7 @@ AppAsset::register($this);
                     <?php endif; ?>
                 </ul>
 
-                <div style="position: relative; width: 250px; margin-right: 15px">
+                <div style="position: relative; width: 250px">
                 <input class="mr-sm-2" style="width: 100%; padding: 5px" type="text" placeholder="Поиск" id="searchInput"
                        onkeyup="
                        if(document.getElementById('searchInput').value.length<3)
@@ -116,14 +117,12 @@ AppAsset::register($this);
             <?= Breadcrumbs::widget(
                     [
                             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-
-
                     ]) ?>
             <?= Alert::widget() ?>
             <?= $content ?>
         </div>
     </div>
-
+    </div>
     <?php $this->endBody() ?>
     </body>
     </html>
