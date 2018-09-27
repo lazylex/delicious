@@ -6,9 +6,9 @@ use yii\helpers\Html;
 /* @var $model backend\models\Ingredient */
 
 $this->title = 'Изменить ингредиент: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Ингредиент', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->ingredient_id]];
-$this->params['breadcrumbs'][] = 'Изменить';
+$this->params['breadcrumbs'][] = ['label' => ' \\ Ингредиент', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => ' \\ '.$model->name, 'url' => ['view', 'id' => $model->ingredient_id]];
+$this->params['breadcrumbs'][] = ' \\ Изменить';
 ?>
 <div class="ingredient-update">
 

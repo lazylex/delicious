@@ -7,8 +7,8 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\Holidays */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Праздники', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => ' \\ Праздники', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ' \\ '.$this->title;
 ?>
 <div class="holidays-view">
 

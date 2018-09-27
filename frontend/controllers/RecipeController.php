@@ -39,9 +39,13 @@ class RecipeController extends Controller
         $model = new Recipe();
         $prod_cat = ProductCategory::find()->asArray()->all();
         $unit_array = Unit::find()->asArray()->all();
+
         foreach ($unit_array as $unit_item) {
             $unit[$unit_item['unit_id']] = ConverterUtil::UnitToString($unit_item['name'], 1, false);
         }
+
+        $model['author']=Yii::$app->user->identity->getId();
+
         if (isset($_POST['ingredient']) && $model->load(Yii::$app->request->post()) && $model->save()) {
             $ingredient = $_POST['ingredient'];
 
@@ -69,10 +73,10 @@ class RecipeController extends Controller
     {
         if (Yii::$app->request->isAjax) {
             $searchString = Yii::$app->request->post('searchString');
-            if($searchString==null)
+            if ($searchString == null)
                 return false;
-            $recipe = Recipe::find()->select(['name','recipe_id'])->where(['like', 'name', $searchString])->all();
-            $res='';
+            $recipe = Recipe::find()->select(['name', 'recipe_id'])->where(['like', 'name', $searchString])->all();
+            $res = '';
             //Debug::display($recipe);
             foreach ($recipe as $item) {
                 $res = $res . "<li class='nav-item'><a class='dropdown-item' style='width: 100%' href='/recipe/view?id={$item['recipe_id']}'> {$item['name']}</li>";
@@ -85,43 +89,52 @@ class RecipeController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $model = Recipe::find()->all();
+        $recipe=[];
+        foreach ($model as $item)
+        {
+            $recipe[$item['recipe_id']]=$item['name'];
+        }
+        return $this->render('index',compact('recipe'));
     }
 
     public function actionView($id)
     {
-        //$model = $this->findModel($id);
-        //Debug::display($model);
         if (!Yii::$app->cache->exists('Recipe_model_' . $id)) {
             $model = $this->findModel($id);
 
-            if($model==null)
-            {
+            if ($model == null) {
                 Yii::$app->session->setFlash('danger', 'Запрашиваемы рецепт отсутсвует!');
                 return $this->redirect(['index']);
             }
 
-            Yii::$app->cache->set('Recipe_model_' . $id, $model,3600);
+            Yii::$app->cache->set('Recipe_model_' . $id, $model, 3600);
         } else
             $model = Yii::$app->cache->get('Recipe_model_' . $id);
 
-
-        /*
-        $ingredient = Ingredient::find()->asArray()->orderBy('name')->all();
-
-
-        */
-
-
-        $category=Category::findOne($model->category_id)->name;
-        $holiday=Holidays::findOne($model->holiday_id);
-        $ingredients=Ingredients::find()->where(['recipe_id'=>$model->recipe_id])->all();
+        $category = Category::findOne($model->category_id)->name;
+        $holiday = Holidays::findOne($model->holiday_id);
         $unit_array = Unit::find()->asArray()->all();
+        $unit = [];
+        foreach ($unit_array as $item) {
+            $unit[$item['unit_id']] = $item['name'];
+        }
 
-        if($holiday!=null)
-            $holiday=$holiday->name;
+        $ingredients = Ingredients::findAll(['recipe_id' => $model->recipe_id]);
+        $ingredient = [];
+        foreach ($ingredients as $item) {
+            $ingredient[$item->ingredient_id]['count'] = $item->count;
+            $ing = Ingredient::find($item->ingredient_id)->limit(1)->one();
+            $ingredient[$item->ingredient_id]['name'] = $ing->name;
+            $ingredient[$item->ingredient_id]['calories'] = $ing->calories;
+            $ingredient[$item->ingredient_id]['unit'] = ConverterUtil::UnitToString($unit[$ing->unit_id], $item->count, false);
+        }
+
+
+        if ($holiday != null)
+            $holiday = $holiday->name;
         return $this->render('view', [
-            'model' => $model, 'category'=>$category, 'holiday'=>$holiday,'unit_array'=>$unit_array,'ingredients'=>$ingredients
+            'model' => $model, 'category' => $category, 'holiday' => $holiday, 'unit_array' => $unit_array, 'ingredients' => $ingredient
         ]);
     }
 

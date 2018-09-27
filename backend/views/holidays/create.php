@@ -7,8 +7,8 @@ use yii\helpers\Html;
 /* @var $model backend\models\Holidays */
 
 $this->title = 'Добавить праздник';
-$this->params['breadcrumbs'][] = ['label' => 'Праздники', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => ' \\ Праздники', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ' \\ '.$this->title;
 ?>
 <div class="holidays-create">
 

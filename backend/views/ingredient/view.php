@@ -8,8 +8,8 @@ use \common\components\ConverterUtil;
 /* @var $model backend\models\Ingredient */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Ингредиент', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => ' \\ Ингредиент', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ' \\ '.$this->title;
 ?>
 <div class="ingredient-view">
 

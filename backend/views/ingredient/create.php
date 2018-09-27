@@ -7,8 +7,8 @@ use yii\helpers\Html;
 /* @var $model backend\models\Ingredient */
 
 $this->title = 'Добавить ингредиент';
-$this->params['breadcrumbs'][] = ['label' => 'Ингредиент', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => ' \\ Ингредиент', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ' \\ '.$this->title;
 ?>
 <div class="ingredient-create">
 

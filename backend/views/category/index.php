@@ -7,8 +7,8 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\CategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Categories';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Категории';
+$this->params['breadcrumbs'][] = ' \\ ' . $this->title;
 ?>
 <div class="category-index">
 
@@ -28,12 +28,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'category_id',
             [
                 'attribute' => 'parent_id',
-                'value' => function ($model) use($dataProvider){
-                    $categories_name=[];
-                    foreach ($dataProvider->getModels() as $models)
-                    {
+                'value' => function ($model) use ($dataProvider) {
+                    $categories_name = [];
+                    foreach ($dataProvider->getModels() as $models) {
                         //echo $key;
-                        $categories_name[$models['category_id']]=$models['name'];
+                        $categories_name[$models['category_id']] = $models['name'];
                     }
                     if ($model->parent_id != null)
                         return $categories_name[$model->parent_id];

@@ -9,7 +9,7 @@ use \common\components\ConverterUtil;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Ингредиент';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ' \\ '.$this->title;
 
 $dataProvider->pagination = ['pageSize' => 20];
 
