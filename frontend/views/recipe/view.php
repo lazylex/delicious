@@ -5,14 +5,20 @@
  * Date: 25.09.2018
  * Time: 12:56
  */
+use \common\widgets\IngredientsTable\IngredientsTable;
+
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ' \\ '.$this->title;
+
 ?>
 <h1><?= $model->name ?></h1>
 
-<h2>category: <?= $category ?></h2>
+<h2>Категория: <?= $category ?></h2>
 <?php if($holiday!=null):?>
-<h2>holiday: <?= $holiday ?></h2>
+<h2>Праздник: <?= $holiday ?></h2>
 <?php endif;?>
-<?php \common\components\Debug::display($ingredients)?>
+<?php //\common\components\Debug::display($ingredients)?>
+
+
+<?= IngredientsTable::widget(['ingredients'=>$ingredients]);?>
+<h2> Килокалорий: <?= $model->calories ?></h2>

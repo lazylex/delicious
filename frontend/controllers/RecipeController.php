@@ -122,9 +122,10 @@ class RecipeController extends Controller
 
         $ingredients = Ingredients::findAll(['recipe_id' => $model->recipe_id]);
         $ingredient = [];
+
         foreach ($ingredients as $item) {
             $ingredient[$item->ingredient_id]['count'] = $item->count;
-            $ing = Ingredient::find($item->ingredient_id)->limit(1)->one();
+            $ing = Ingredient::find()->where(['ingredient_id'=>$item->ingredient_id])->limit(1)->one();
             $ingredient[$item->ingredient_id]['name'] = $ing->name;
             $ingredient[$item->ingredient_id]['calories'] = $ing->calories;
             $ingredient[$item->ingredient_id]['unit'] = ConverterUtil::UnitToString($unit[$ing->unit_id], $item->count, false);
@@ -134,7 +135,7 @@ class RecipeController extends Controller
         if ($holiday != null)
             $holiday = $holiday->name;
         return $this->render('view', [
-            'model' => $model, 'category' => $category, 'holiday' => $holiday, 'unit_array' => $unit_array, 'ingredients' => $ingredient
+            'model' => $model, 'category' => $category, 'holiday' => $holiday,/* 'unit_array' => $unit_array,*/ 'ingredients' => $ingredient
         ]);
     }
 

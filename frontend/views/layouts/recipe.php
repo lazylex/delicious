@@ -108,7 +108,7 @@ AppAsset::register($this);
 
                        onfocusout="$('#searchResult').fadeOut(1000);"
                 >
-                <ul class="nav nav-pills flex-column" id="searchResult" style="position: absolute; background: white; width: 120%; border: lightgrey solid 1px; border-radius: 3px; margin: 5px; display: none"></ul>
+                <ul class="nav nav-pills flex-column" id="searchResult" style="position: absolute; background: white; width: 120%; border: lightgrey solid 1px; border-radius: 3px; margin: 5px; display: none; z-index: 1500"></ul>
             </div>
 
             <?php if (!Yii::$app->user->isGuest): ?>

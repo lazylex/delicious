@@ -17,21 +17,22 @@ use common\widgets\TimeSet\TimeSetAsset;
 class TimeSetWidget extends InputWidget
 {
     private $model_name, $daySet, $hourSet, $minuteSet;
+
     public function init()
     {
         parent::init();
         TimeSetAsset::register($this->getView());
-        $className=explode("\\",get_class($this->model));
-        $this->model_name=$className[count($className)-1];
-        $inputName=$className[count($className)-1].$this->attribute;
-        $this->daySet='daySet'.$inputName;
-        $this->hourSet='hourSet'.$inputName;
-        $this->minuteSet='minuteSet'.$inputName;
+        $className = explode("\\", get_class($this->model));
+        $this->model_name = $className[count($className) - 1];
+        $inputName = $className[count($className) - 1] . $this->attribute;
+        $this->daySet = 'daySet' . $inputName;
+        $this->hourSet = 'hourSet' . $inputName;
+        $this->minuteSet = 'minuteSet' . $inputName;
     }
 
     public function run()
     {
-        echo "<input type='hidden' id='{$this->model_name}-{$this->attribute}' name='{$this->model_name}"."[{$this->attribute}]"."' value='0'>";
+        echo "<input type='hidden' id='{$this->model_name}-{$this->attribute}' name='{$this->model_name}" . "[{$this->attribute}]" . "' value='0'>";
         echo "<div class='row col-6'>";
         echo "<div class='col-4'>
                 <input type='number' min='0' max='31' class='form-control' placeholder='дней' title='дней' id='{$this->daySet}' style='text-align: center'

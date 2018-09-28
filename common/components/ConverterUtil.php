@@ -16,8 +16,11 @@ class ConverterUtil extends Component
     {
         if (!is_numeric($count) || $count <= 0)
             return '';
+        if (!is_integer($count))
+            $count = rtrim(rtrim($count, '0'), '.');
         $count_result = $returnWithCount ? $count . ' ' : '';
 
+        /* Если число дробное, то не мудрствуя лукаво возвращаем в таком виде:*/
         if (!is_integer($count) && ((int)$count != $count)) {
             switch ($unit) {
                 case 'кг':
@@ -88,35 +91,45 @@ class ConverterUtil extends Component
             }
         }
 
+        if ($unit == 'шт') {
+            if (!$isDec && $lastDigit == 1)
+                return $count_result . 'штука';
+            if ($isDec)
+                return $count_result . 'штук';
+            if (in_array($lastDigit, [2, 3, 4]))
+                return $count_result . 'штуки';
+            else
+                return $count_result . 'штук';
+        }
+
         return $unit;
     }
 
     public function CaloriesToColor($calories)
     {
-        $cc=[
-            '10'=>'#FFFFF5',
-            '20'=>'#F5F3CA',
-            '30'=>'#F5E8BC',
-            '40'=>'#f9e491',
-            '50'=>'#f4d982',
-            '60'=>'#e9d86c',
-            '70'=>'#f3d342',
-            '80'=>'#f0cb35',
-            '90'=>'#f3cf1f',
-            '100'=>'#f2ca35',
-            '150'=>'#faefd9',
-            '200'=>'#f6e2c7',
-            '250'=>'#fad9ba',
-            '300'=>'#f6ca8d',
-            '350'=>'#dba16f',
-            '400'=>'#ec9f67',
-            '450'=>'#f66a1d',
-            '500'=>'#e47a0c',
-            '550'=>'#ee3e19',
-            '600'=>'#eb1900',];
-        foreach ($cc as $cal=>$color)
-        {
-            if($calories<($cal/100))
+        $cc = [
+            '10' => '#FFFFF5',
+            '20' => '#F5F3CA',
+            '30' => '#F5E8BC',
+            '40' => '#f9e491',
+            '50' => '#f4d982',
+            '60' => '#e9d86c',
+            '70' => '#f3d342',
+            '80' => '#f0cb35',
+            '90' => '#f3cf1f',
+            '100' => '#f2ca35',
+            '150' => '#faefd9',
+            '200' => '#f6e2c7',
+            '250' => '#fad9ba',
+            '300' => '#f6ca8d',
+            '350' => '#dba16f',
+            '400' => '#ec9f67',
+            '450' => '#f66a1d',
+            '500' => '#e47a0c',
+            '550' => '#ee3e19',
+            '600' => '#eb1900',];
+        foreach ($cc as $cal => $color) {
+            if ($calories < ($cal / 100))
                 return $color;
         }
         return '#eb1900';
