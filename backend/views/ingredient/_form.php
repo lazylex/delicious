@@ -9,7 +9,7 @@ use yii\helpers\ArrayHelper;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="ingredient-form">
+<div class="content-form">
 
     <?php $form = ActiveForm::begin(); ?>
 

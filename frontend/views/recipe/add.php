@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = ' \\ '.$this->title;
 ?>
 <!-- // https://bootswatch.com/materia/ -->
 
-<div class="ingredient-form form-group">
+<div class="content-form form-group">
 
 
     <?php $form = ActiveForm::begin([

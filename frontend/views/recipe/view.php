@@ -11,6 +11,7 @@ use \common\widgets\IngredientsTable\IngredientsTable;
 $this->title = $model->name;
 
 ?>
+<div class="content-form form-group">
 <h1><?= $model->name ?></h1>
 
 <h2>Категория: <?= $category ?></h2>
@@ -22,3 +23,6 @@ $this->title = $model->name;
 
 <?= IngredientsTable::widget(['ingredients'=>$ingredients]);?>
 <h2> Килокалорий: <?= $model->calories ?></h2>
+
+<?= $model->article ?>
+</div>
