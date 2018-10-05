@@ -44,7 +44,7 @@ class RecipeController extends Controller
             $unit[$unit_item['unit_id']] = ConverterUtil::UnitToString($unit_item['name'], 1, false);
         }
 
-        $model['author']=Yii::$app->user->identity->getId();
+        $model['author'] = Yii::$app->user->identity->getId();
 
         if (isset($_POST['ingredient']) && $model->load(Yii::$app->request->post()) && $model->save()) {
             $ingredient = $_POST['ingredient'];
@@ -75,7 +75,7 @@ class RecipeController extends Controller
             $searchString = Yii::$app->request->post('searchString');
             if ($searchString == null)
                 return false;
-            $recipe = Recipe::find()->select(['name', 'recipe_id'])->where(['like', 'name', $searchString])->all();
+            $recipe = Recipe::find()->select(['name', 'recipe_id'])->where(['and', ['like', 'name', $searchString], ['verified' => '1']])->all();
             $res = '';
             //Debug::display($recipe);
             foreach ($recipe as $item) {
@@ -89,13 +89,12 @@ class RecipeController extends Controller
 
     public function actionIndex()
     {
-        $model = Recipe::find()->all();
-        $recipe=[];
-        foreach ($model as $item)
-        {
-            $recipe[$item['recipe_id']]=$item['name'];
+        $model = Recipe::find()->where(['verified' => '1'])->all();
+        $recipe = [];
+        foreach ($model as $item) {
+            $recipe[$item['recipe_id']] = $item['name'];
         }
-        return $this->render('index',compact('recipe'));
+        return $this->render('index', compact('recipe'));
     }
 
     public function actionView($id)
@@ -112,6 +111,8 @@ class RecipeController extends Controller
         } else
             $model = Yii::$app->cache->get('Recipe_model_' . $id);
 
+        //вставить проверку на verify и если не пройдено и пользователь не обладает правами модератора или не является автором, то запретити просмотр
+
         $category = Category::findOne($model->category_id)->name;
         $holiday = Holidays::findOne($model->holiday_id);
         $unit_array = Unit::find()->asArray()->all();
@@ -125,7 +126,7 @@ class RecipeController extends Controller
 
         foreach ($ingredients as $item) {
             $ingredient[$item->ingredient_id]['count'] = $item->count;
-            $ing = Ingredient::find()->where(['ingredient_id'=>$item->ingredient_id])->limit(1)->one();
+            $ing = Ingredient::find()->where(['ingredient_id' => $item->ingredient_id])->limit(1)->one();
             $ingredient[$item->ingredient_id]['name'] = $ing->name;
             $ingredient[$item->ingredient_id]['calories'] = $ing->calories;
             $ingredient[$item->ingredient_id]['unit'] = ConverterUtil::UnitToString($unit[$ing->unit_id], $item->count, false);
@@ -135,7 +136,8 @@ class RecipeController extends Controller
         if ($holiday != null)
             $holiday = $holiday->name;
         return $this->render('view', [
-            'model' => $model, 'category' => $category, 'holiday' => $holiday,/* 'unit_array' => $unit_array,*/ 'ingredients' => $ingredient
+            'model' => $model, 'category' => $category, 'holiday' => $holiday,/* 'unit_array' => $unit_array,*/
+            'ingredients' => $ingredient
         ]);
     }
 

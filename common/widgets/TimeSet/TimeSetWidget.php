@@ -17,6 +17,7 @@ use common\widgets\TimeSet\TimeSetAsset;
 class TimeSetWidget extends InputWidget
 {
     private $model_name, $daySet, $hourSet, $minuteSet;
+    public $view_day=false;
 
     public function init()
     {
@@ -34,7 +35,7 @@ class TimeSetWidget extends InputWidget
     {
         echo "<input type='hidden' id='{$this->model_name}-{$this->attribute}' name='{$this->model_name}" . "[{$this->attribute}]" . "' value='0'>";
         echo "<div class='row col-6'>";
-        echo "<div class='col-4'>
+        if($this->view_day) echo "<div class='col-4'>
                 <input type='number' min='0' max='31' class='form-control' placeholder='дней' title='дней' id='{$this->daySet}' style='text-align: center'
                 onchange=\"{recountTime('{$this->model_name}-{$this->attribute}','{$this->daySet}','{$this->hourSet}','{$this->minuteSet}');}\">
                 </div>";

@@ -12,7 +12,7 @@ use \common\components\ConverterUtil;
 use \common\widgets\TimeSet\TimeSetWidget;
 
 $this->title = "Добавить рецепт";
-$this->params['breadcrumbs'][] = ' \\ '.$this->title;
+$this->params['breadcrumbs'][] = ' \\ ' . $this->title;
 ?>
 <!-- // https://bootswatch.com/materia/ -->
 
@@ -134,16 +134,29 @@ $this->params['breadcrumbs'][] = ' \\ '.$this->title;
             </button>&nbsp;
             Время приготовления:
         </div>
-        <div class="col-9">
+        <div class="col-9" style="padding-left: 0">
             <?= $form->field($model, 'time')->widget(TimeSetWidget::className()) ?>
         </div>
     </div>
-    <?= ''//$form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/])                                    ?>
 
     <div class="row">
         <div class="col-3">
-            <button class="btn-success  btn-num-green" id="btn-num-green5" type="button">
+            <button class="btn-success btn-num-green" id="btn-num-green5" type="button">
                 5
+            </button>&nbsp;
+            Полной готовность блюда через:
+        </div>
+        <div class="col-9" style="padding-left: 0">
+            <?= $form->field($model, 'full_time')->widget(TimeSetWidget::className(), ['view_day' => 'true']) ?>
+        </div>
+    </div>
+
+    <?= $form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/]) ?>
+
+    <div class="row">
+        <div class="col-3">
+            <button class="btn-success  btn-num-green" id="btn-num-green6" type="button">
+                6
             </button>&nbsp;
             Краткое описание рецепта:
         </div>
@@ -153,8 +166,8 @@ $this->params['breadcrumbs'][] = ' \\ '.$this->title;
     </div>
     <br>
     <div>
-        <button class="btn-success btn-num-green" id="btn-num-green6" type="button">
-            6
+        <button class="btn-success btn-num-green" id="btn-num-green7" type="button">
+            7
         </button>&nbsp;
         Ингредиенты:
 

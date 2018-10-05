@@ -1,6 +1,9 @@
 function recountTime(name, daySet, hourSet, minuteSet) {
     var day, hour, minute;
-    day = parseInt(document.getElementById(daySet).value, 10);
+    if(document.getElementById(daySet)!=null)
+        day = parseInt(document.getElementById(daySet).value, 10);
+    else
+        day=0;
     hour = parseInt(document.getElementById(hourSet).value, 10);
     minute = parseInt(document.getElementById(minuteSet).value, 10);
 
