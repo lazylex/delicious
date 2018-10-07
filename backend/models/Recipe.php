@@ -40,12 +40,15 @@ class Recipe extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['calories', 'holiday_id', 'author', 'category_id'], 'integer'],
-            [['time'], 'safe'],
-            [['article', 'category_id','name'], 'required'],
+            [['holiday_id', 'author', 'category_id'], 'integer'],
+            [['portions'], 'integer', 'max' => 100, 'min' => 1],
+            [['portions'], 'default', 'value' => 1],
+            [['time', 'full_time'], 'safe'],
+            [['article', 'category_id', 'name'], 'required'],
             [['article'], 'string'],
+            [['calories', 'calories_per_portion'], 'number'],
             [['name', 'annotation'], 'string', 'max' => 255],
-            [['calories'],'compare', 'compareValue' => 1, 'operator' => '>=', 'type' => 'number','message' => 'Калорийность рецепта не может быть нулевой. Добавьте ингредиенты.'],
+            [['calories'], 'compare', 'compareValue' => 1, 'operator' => '>=', 'type' => 'number', 'message' => 'Калорийность рецепта не может быть нулевой. Добавьте ингредиенты.'],
             [['author'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['author' => 'id']],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'category_id']],
             [['holiday_id'], 'exist', 'skipOnError' => true, 'targetClass' => Holidays::className(), 'targetAttribute' => ['holiday_id' => 'holiday_id']],
@@ -62,6 +65,7 @@ class Recipe extends \yii\db\ActiveRecord
             'name' => 'Название',
             'calories' => 'Килокалорий',
             'time' => 'Время приготовления',
+            'full_time' => 'Время до полной готовности блюда',
             'holiday_id' => 'Для какого праздника является традиционным блюдом',
             'author' => 'Автор',
             'annotation' => 'Краткое описание',

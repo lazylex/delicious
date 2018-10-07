@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = ' \\ ' . $this->title;
     ?>
 
     <div class="row">
-        <div class="col-3">
+        <div class="col-3" style="padding-top: 13px">
             <button class="btn-success btn-num-green" id="btn-num-green1" type="button">
                 1
             </button>&nbsp;
@@ -91,7 +91,7 @@ $this->params['breadcrumbs'][] = ' \\ ' . $this->title;
     </div>
 
     <div class="row">
-        <div class="col-3">
+        <div class="col-3" style="padding-top: 13px">
             <button class="btn-success btn-num-green" id="btn-num-green2" type="button">
                 2
             </button>&nbsp;
@@ -116,7 +116,7 @@ $this->params['breadcrumbs'][] = ' \\ ' . $this->title;
     </div>
 
     <div class="row">
-        <div class="col-3">
+        <div class="col-3" style="padding-top: 13px">
             <button class="btn-success btn-num-green" id="btn-num-green3" type="button">
                 3
             </button>&nbsp;
@@ -128,7 +128,7 @@ $this->params['breadcrumbs'][] = ' \\ ' . $this->title;
     </div>
 
     <div class="row">
-        <div class="col-3">
+        <div class="col-3" style="padding-top: 13px">
             <button class="btn-success btn-num-green" id="btn-num-green4" type="button">
                 4
             </button>&nbsp;
@@ -140,23 +140,33 @@ $this->params['breadcrumbs'][] = ' \\ ' . $this->title;
     </div>
 
     <div class="row">
-        <div class="col-3">
+        <div class="col-3" style="padding-top: 13px">
             <button class="btn-success btn-num-green" id="btn-num-green5" type="button">
                 5
             </button>&nbsp;
-            Полной готовность блюда через:
+            Время до полной готовности блюда:
         </div>
         <div class="col-9" style="padding-left: 0">
             <?= $form->field($model, 'full_time')->widget(TimeSetWidget::className(), ['view_day' => 'true']) ?>
         </div>
     </div>
 
-    <?= $form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/]) ?>
+    <div class="row">
+        <div class="col-3" style="padding-top: 13px">
+            <button class="btn-success btn-num-green" id="btn-num-green6" type="button">
+                6
+            </button>&nbsp;
+            Порций:
+        </div>
+        <div class="" style="padding-left: 15px">
+            <?= $form->field($model, 'portions')->textInput(['type'=>'number','class'=>'form-control text-align-center','value'=>1,'min'=>1,'max'=>100]) ?>
+        </div>
+    </div>
 
     <div class="row">
-        <div class="col-3">
-            <button class="btn-success  btn-num-green" id="btn-num-green6" type="button">
-                6
+        <div class="col-3" style="padding-top: 13px">
+            <button class="btn-success  btn-num-green" id="btn-num-green7" type="button">
+                7
             </button>&nbsp;
             Краткое описание рецепта:
         </div>
@@ -166,8 +176,8 @@ $this->params['breadcrumbs'][] = ' \\ ' . $this->title;
     </div>
     <br>
     <div>
-        <button class="btn-success btn-num-green" id="btn-num-green7" type="button">
-            7
+        <button class="btn-success btn-num-green" id="btn-num-green8" type="button">
+            8
         </button>&nbsp;
         Ингредиенты:
 
@@ -231,10 +241,10 @@ $this->params['breadcrumbs'][] = ' \\ ' . $this->title;
     </div>
     <div class="clearfix"></div>
 
-    <div class="">
+    <div  style="padding-top: 13px">
 
-        <button class="btn-success  btn-num-green" id="btn-num-green7" type="button">
-            7
+        <button class="btn-success  btn-num-green" id="btn-num-green9" type="button">
+            9
         </button>&nbsp;
         Полный текст рецепта:
 
@@ -242,7 +252,7 @@ $this->params['breadcrumbs'][] = ' \\ ' . $this->title;
             <?= $form->field($model, 'article')->textarea(['rows' => 6]) ?>
         </div>
     </div>
-
+    <?= $form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/]) ?>
     <div class="form-group" style="text-align: right">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
