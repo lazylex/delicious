@@ -16,6 +16,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'calories')->textInput() ?>
 
+    <?= $form->field($model, 'calories_per_portion')->textInput() ?>
+
+    <?= $form->field($model, 'portions')->textInput() ?>
+
     <?= $form->field($model, 'time')->textInput() ?>
 
     <?= $form->field($model, 'holiday_id')->textInput() ?>

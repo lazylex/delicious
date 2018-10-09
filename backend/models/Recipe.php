@@ -9,10 +9,12 @@ use Yii;
  *
  * @property int $recipe_id
  * @property string $name
- * @property int $calories
+ * @property double $calories
+ * @property double $calories_per_portion
  * @property string $time
  * @property int $holiday_id
  * @property int $author
+ * @property int $portions
  * @property string $annotation
  * @property string $article
  * @property int $category_id
@@ -71,6 +73,8 @@ class Recipe extends \yii\db\ActiveRecord
             'annotation' => 'Краткое описание',
             'article' => 'Рецепт',
             'category_id' => 'Категория',
+            'calories_per_portion'=>'Килокалорий в порции',
+            'portions'=>'Порций',
         ];
     }
 

@@ -7,8 +7,8 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\Recipe */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Recipes', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => ' \\ Рецепты', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ' \\ '.$this->title;
 ?>
 <div class="recipe-view">
 
@@ -31,6 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'recipe_id',
             'name',
             'calories',
+            'calories_per_portion',
+            'portions',
             'time',
             'holiday_id',
             'author',

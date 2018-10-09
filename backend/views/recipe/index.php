@@ -7,8 +7,8 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\RecipeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Recipes';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Рецепты';
+$this->params['breadcrumbs'][] = ' \\ ' . $this->title;
 ?>
 <div class="recipe-index">
 

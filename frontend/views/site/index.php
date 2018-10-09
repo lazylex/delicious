@@ -5,6 +5,7 @@ use yii\helpers\Html;
 $this->title = 'Вкусняшки';
 ?>
 <div class="site-index">
+    <?= \common\widgets\SquareRecipe\SquareRecipe::widget(['id'=>255]) ?>
     <div>Если в ближайшее время намечается праздник, то отобразить соответствующие блюда</div>
     <div>Самые популярные рецепты</div>
     <div>Новые рецепты</div>
