@@ -30,7 +30,7 @@ AppAsset::register($this);
     <?php $this->beginBody() ?>
     <div style="width: 100%; height: 100%; background: rgba(100,100,100,0.5 )">
     <div class="wrap">
-        <nav class="navbar navbar-expand-lg navbar-dark" style="background: forestgreen">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background: forestgreen; box-shadow: 0 0 10px rgba(0,0,0,0.5);">
             <a class="navbar-brand" href="<?= Yii::$app->homeUrl ?>"><i class="glyphicon glyphicon-cutlery"></i><?= ' '.Yii::$app->name ?></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
                     aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">

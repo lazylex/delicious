@@ -19,4 +19,9 @@ return [
             'cache'=>'cache'
         ],
     ],
+    'components' => [
+        'assetManager' => [
+            'linkAssets' => true,
+        ],
+    ],
 ];

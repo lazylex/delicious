@@ -1,0 +1,71 @@
+.srw_main_div {
+    height: 350px;
+    width: 350px;
+    border: rgb(34,139,34) solid 1px;
+    border-radius: 5px;
+    margin-left: 50px;
+    margin-bottom: 50px;
+    display: inline-block;
+    background: rgba(255,255,255,0.8);
+    float:left;
+    /*padding: 5px;*/
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.srw_header {
+    text-align: center;
+    background: forestgreen;
+    font-size: medium;
+}
+
+a.srw_a_header{
+    color: white;
+    text-decoration: none;
+}
+
+.srw_a_header:visited{
+    color: aliceblue;
+}
+
+.srw_a_header:hover{
+    color: yellow;
+    text-decoration: none;
+}
+
+.srw_img{
+    /*float: left;*/
+    width: 100%;
+    height: 110px;
+    border: none;
+    object-fit: cover;
+    background-position: 50% 50%;
+}
+
+.srw_annotation {
+    padding: 2px 5px 2px 5px;
+    height: 80px;
+    background: rgba(244,230,230,0.5);
+    font-size: smaller;
+}
+
+.srw_table {
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+
+.srw_table th,
+.srw_table td {
+    vertical-align: top;
+    border-top: 1px solid lightgrey;
+    padding-left: 5px;
+}
+
+.srw_table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid lightgrey;
+}
+
+.srw_table tbody + tbody {
+    border-top: 2px solid lightgrey;
+}

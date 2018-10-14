@@ -11,6 +11,8 @@ namespace common\widgets\SquareRecipe;
 
 use backend\models\Ingredients;
 use backend\models\Recipe;
+use backend\models\Unit;
+use common\components\ConverterUtil;
 use common\components\Debug;
 use yii\bootstrap\Widget;
 use yii\helpers\Html;
@@ -24,10 +26,12 @@ class SquareRecipe extends Widget
     private $portions;
     private $calories_per_portion;
     private $ingredients = [];
-
+    private $unit;
+    private $annotation;
     public function init()
     {
         parent::init();
+        SquareRecipeAsset::register($this->getView());
         $model = Recipe::findOne($this->id);
         if ($model == null)
             return;
@@ -35,22 +39,34 @@ class SquareRecipe extends Widget
         $this->calories = $model->calories;
         $this->portions = $model->portions;
         $this->calories_per_portion = $model->calories_per_portion;
+        $this->annotation=$model->annotation;
         $this->ingredients = $model->ingredients0;
-
+        $unit = Unit::find()->all();
+        foreach ($unit as $item) {
+            $this->unit[$item->unit_id] = $item->name;
+        }
     }
 
     public function run()
     {
-        echo "<div style='height: 100px; width: 100px'>";
-        echo Html::a($this->name, Url::to(['recipe/view', 'id' => $this->id]));
+        echo "<div class='srw_main_div'>";
+        echo "<a class='srw_a_header' href='" . Url::to(['recipe/view', 'id' => $this->id]) . "'><div class='srw_header'>" . $this->name . "</div></a>";
+        echo "<img src='https://www.fromrussia.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/1/3/134436_2.jpg' class='srw_img'>";
+        echo "<div class='srw_annotation'>{$this->annotation}</div><div class='clearfix'></div>";
+
         //echo "name: {$this->name}, calories: {$this->calories}, calories per portion: {$this->calories_per_portion}, portions: {$this->portions}<br>";
         //Debug::display($this->ingredients);
+        echo "<table class='srw_table'><thead><th>Название</th><th>Количество</th></thead>";
         foreach ($this->ingredients as $key => $ingredient) {
             //echo $key;
-            // Debug::display($ingredient);
+            //Debug::display();
+            echo "<tr>";
+            echo "<td>{$ingredient['name']}</td>";
+            echo "<td>" . ConverterUtil::UnitToString($this->unit[$ingredient->unit_id], Ingredients::findOne(['ingredient_id' => $ingredient['ingredient_id'], 'recipe_id' => $this->id])['count'], true) . "</td>";
 
-            echo $ingredient['name'] . ' ' . $ingredient['calories'] . ' ' . Ingredients::findOne(['ingredient_id' => $ingredient['ingredient_id'], 'recipe_id' => $this->id])['count'] . '<br>';
+            //echo $ingredient['name'] . ' ' . $ingredient['calories'] . ' ' . Ingredients::findOne(['ingredient_id' => $ingredient['ingredient_id'], 'recipe_id' => $this->id])['count'] . '<br>';
+            echo "</tr>";
         }
-        echo "</div>";
+        echo "</table></div>";
     }
 }
