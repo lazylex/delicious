@@ -112,7 +112,7 @@ AppAsset::register($this);
             </div>
         </nav>
 
-        <div class="col-12 col-lg-8" style=" margin: auto; margin-top: 60px">
+        <div class="col-12 col-lg-11" style=" margin: auto; margin-top: 60px">
             <?= Breadcrumbs::widget(
                     [
                             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

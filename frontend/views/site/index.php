@@ -5,9 +5,9 @@ use yii\helpers\Html;
 $this->title = 'Вкусняшки';
 ?>
 <div class="site-index">
-    <?php $ids=\backend\models\Recipe::find()->select('recipe_id')->where(['verified' => '1'])->all();
-    foreach ($ids as $id)
-    echo \common\widgets\SquareRecipe\SquareRecipe::widget(['id'=>$id])
+    <?php $recipies=\backend\models\Recipe::find()->select('recipe_id')->where(['verified' => '1'])->all();
+    foreach ($recipies as $recipe)
+    echo \common\widgets\SquareRecipe\SquareRecipe::widget(['id'=>$recipe->recipe_id])
     ?>
     <div style="clear: both"></div>
     <div>Если в ближайшее время намечается праздник, то отобразить соответствующие блюда</div>
