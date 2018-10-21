@@ -22,6 +22,9 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+<!--
+    <script src="/ckeditor/ckeditor.js"></script>
+    <script src="/ckeditor/config.js"></script>-->
     <?php $this->head() ?>
 </head>
 <!--<body style="background: Url('<?php //echo \yii\helpers\Url::to( ['/images/background.svg'])?>') no-repeat">-->

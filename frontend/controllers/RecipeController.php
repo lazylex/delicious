@@ -98,8 +98,8 @@ class RecipeController extends Controller
     }
 
     public function actionView($id)
-    {
-        if (!Yii::$app->cache->exists('Recipe_model_' . $id)) {
+    {$model = $this->findModel($id);//чего-то фигня ниже не работает
+        /*if (!Yii::$app->cache->exists('Recipe_model_' . $id)) {
             $model = $this->findModel($id);
 
             if ($model == null) {
@@ -109,7 +109,7 @@ class RecipeController extends Controller
 
             Yii::$app->cache->set('Recipe_model_' . $id, $model, 3600);
         } else
-            $model = Yii::$app->cache->get('Recipe_model_' . $id);
+            $model = Yii::$app->cache->get('Recipe_model_' . $id);*/
 
         //вставить проверку на verify и если не пройдено и пользователь не обладает правами модератора или не является автором, то запретити просмотр
 

@@ -10,7 +10,8 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use \common\components\ConverterUtil;
 use \common\widgets\TimeSet\TimeSetWidget;
-
+use mihaildev\ckeditor\CKEditor;
+use mihaildev\elfinder\ElFinder;
 $this->title = "Добавить рецепт";
 $this->params['breadcrumbs'][] = ' \\ ' . $this->title;
 ?>
@@ -247,10 +248,28 @@ $this->params['breadcrumbs'][] = ' \\ ' . $this->title;
             9
         </button>&nbsp;
         Полный текст рецепта:
+            <!--<textarea name="Recipe[article]" id="article">
 
-        <div style="padding: 20px; margin-bottom: 20px; margin-top: 20px; background: rgba(255,255,255,0.8); border-radius: 3px; border: lightgrey solid 1px">
-            <?= $form->field($model, 'article')->textarea(['rows' => 6]) ?>
-        </div>
+            </textarea>
+            <script>
+                CKEDITOR.replace( 'article', {
+
+                    language: 'ru',
+                    height: 1000,/*
+                    uiColor: '#59b45c'
+
+                             */
+                } );
+            </script>
+-->
+        <?= $form->field($model, 'article')->widget(CKEditor::className(),[
+            'editorOptions' => ElFinder::ckeditorOptions('elfinder',[
+            'preset' => 'basic', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+            'inline' => false, //по умолчанию false
+                'height'=>500,
+        ]),
+        ]);
+        ?>
     </div>
     <?= $form->field($model, 'author', ['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->identity->getId(),/* 'disabled' => 'true'*/]) ?>
     <div class="form-group" style="text-align: right">
