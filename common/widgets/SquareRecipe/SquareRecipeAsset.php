@@ -14,9 +14,9 @@ class SquareRecipeAsset extends AssetBundle
 {
     public $sourcePath = '@common/widgets/SquareRecipe/assets';
 
-    public $css = ['css/style.css'];
+    public $css = ['css/srw_style.css'];
 
-    public $js = [];
+    public $js = ['js/srw.js'];
 
-    public $depends = [];
+    public $depends = ['yii\web\JqueryAsset'];
 }
