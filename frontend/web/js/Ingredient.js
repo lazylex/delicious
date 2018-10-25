@@ -1,5 +1,18 @@
-function addIngredient(id, name, nice_name, color, unit_name, calories) {
+function addB(name)
+{
+    var a = document.createElement("a");
+    a.text=name;
+    a.className='cke_button cke_button_off cke_button_label';
 
+    //a.href='#';
+    a.onclick=function () { CKEDITOR.instances["recipe-article"].insertHtml('<u><em>'+name+'</em></u> ');}
+    document.getElementById('cke_26').appendChild(a);
+
+
+}
+
+function addIngredient(id, name, nice_name, color, unit_name, calories) {
+    addB(nice_name);
     document.getElementById(name).style.display = 'none';
     //document.getElementById(name).style.visibility='hidden';
     //document.getElementById(name).style.opacity=0;
