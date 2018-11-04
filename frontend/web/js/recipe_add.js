@@ -1,10 +1,11 @@
 var sum=0;
-for(var i=9;i>0;i--)
+var elements = 10;
+for(var i=elements;i>0;i--)
 {
     $("#btn-num-green"+i.toString(10)).animate({
         opacity: 1,
         marginTop: "-6px",
-    }, 700 +(10-i)*300);
+    }, 900 +(elements + 1 -i)*300);
 }
 
 $("#add_button")

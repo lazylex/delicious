@@ -1,13 +1,14 @@
-function addB(name)
-{
+function addB(name) {
     var a = document.createElement("a");
-    a.text=name;
-    a.className='cke_button cke_button_off cke_button_label';
+    a.text = '▼ '+name;
+    a.className = 'btn btn-secondary btn-lg margin5';
 
     //a.href='#';
-    a.onclick=function () { CKEDITOR.instances["recipe-article"].insertHtml('<u><em>'+name+'</em></u> ');}
-    document.getElementById('cke_26').appendChild(a);
-
+    a.onclick = function () {
+        CKEDITOR.instances["recipe-article"].insertHtml('<span class="ing-name">' + name + '</span> ');
+    }
+//    document.getElementById('cke_26').appendChild(a);
+    document.getElementById('div2add_ing_but').appendChild(a);
 
 }
 
@@ -62,8 +63,8 @@ function addIngredient(id, name, nice_name, color, unit_name, calories) {
     count.style.textAlign = 'center';
     count_td.style.width = "60px";
     count.type = "number";
-    count.min='1';
-    count.max='5000';
+    count.min = '1';
+    count.max = '5000';
     count.onchange = function () {
         document.getElementById("cal_" + id).innerText = (calories * count.value).toFixed(2);
         var cc = document.getElementsByClassName("calories_td");
@@ -84,7 +85,7 @@ function addIngredient(id, name, nice_name, color, unit_name, calories) {
     count_td.appendChild(count);
     td_cal.innerText = calories;
     //td_cal.style.color=color;
-    td_cal.style.fontWeight='bold';
+    td_cal.style.fontWeight = 'bold';
     td_cal.className = 'calories_td';
     td_cal.id = 'cal_' + id;
 

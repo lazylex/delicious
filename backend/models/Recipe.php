@@ -17,6 +17,7 @@ use Yii;
  * @property int $portions
  * @property string $annotation
  * @property string $article
+ * @property string $img_url
  * @property int $category_id
  *
  * @property Ingredients $ingredients
@@ -27,6 +28,15 @@ use Yii;
  */
 class Recipe extends \yii\db\ActiveRecord
 {
+
+    public function beforeSave($insert)
+    {
+        $saveContinue = parent::beforeSave($insert);
+        if (isset($this->portions) && isset($this->calories) && is_numeric($this->portions) && is_numeric($this->calories)) {
+            $this->calories_per_portion = $this->calories / $this->portions;
+        }
+        return $saveContinue;
+    }
 
     /**
      * {@inheritdoc}
@@ -49,7 +59,8 @@ class Recipe extends \yii\db\ActiveRecord
             [['article', 'category_id', 'name'], 'required'],
             [['article'], 'string'],
             [['calories', 'calories_per_portion'], 'number'],
-            [['name', 'annotation'], 'string', 'max' => 255],
+            [['name', 'annotation', 'img_url'], 'string', 'max' => 255],
+            [['verified'],'safe'],
             [['calories'], 'compare', 'compareValue' => 1, 'operator' => '>=', 'type' => 'number', 'message' => 'Калорийность рецепта не может быть нулевой. Добавьте ингредиенты.'],
             [['author'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['author' => 'id']],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'category_id']],
@@ -73,8 +84,10 @@ class Recipe extends \yii\db\ActiveRecord
             'annotation' => 'Краткое описание',
             'article' => 'Рецепт',
             'category_id' => 'Категория',
-            'calories_per_portion'=>'Килокалорий в порции',
-            'portions'=>'Порций',
+            'calories_per_portion' => 'Килокалорий в порции',
+            'portions' => 'Порций',
+            'img_url' => 'URL картинки',
+            'verified'=>'Проверено, можно публиковать',
         ];
     }
 

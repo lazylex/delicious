@@ -39,6 +39,8 @@ $this->params['breadcrumbs'][] = ' \\ '.$this->title;
             'annotation',
             'article:ntext',
             'category_id',
+            'img_url',
+            'verified',
         ],
     ]) ?>
 

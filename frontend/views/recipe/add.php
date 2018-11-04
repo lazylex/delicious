@@ -12,6 +12,8 @@ use \common\components\ConverterUtil;
 use \common\widgets\TimeSet\TimeSetWidget;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\ElFinder;
+use mihaildev\elfinder\InputFile;
+
 $this->title = "Добавить рецепт";
 $this->params['breadcrumbs'][] = ' \\ ' . $this->title;
 ?>
@@ -160,7 +162,7 @@ $this->params['breadcrumbs'][] = ' \\ ' . $this->title;
             Порций:
         </div>
         <div class="" style="padding-left: 15px">
-            <?= $form->field($model, 'portions')->textInput(['type'=>'number','class'=>'form-control text-align-center','value'=>1,'min'=>1,'max'=>100]) ?>
+            <?= $form->field($model, 'portions')->textInput(['type' => 'number', 'class' => 'form-control text-align-center', 'value' => 1, 'min' => 1, 'max' => 100]) ?>
         </div>
     </div>
 
@@ -242,32 +244,37 @@ $this->params['breadcrumbs'][] = ' \\ ' . $this->title;
     </div>
     <div class="clearfix"></div>
 
-    <div  style="padding-top: 13px">
-
+    <div>
         <button class="btn-success  btn-num-green" id="btn-num-green9" type="button">
             9
         </button>&nbsp;
+        Изображение готового блюда:
+        <?= $form->field($model, 'img_url')->widget(InputFile::className(), [
+            'language' => 'ru',
+            'controller' => 'elfinder', // вставляем название контроллера, по умолчанию равен elfinder
+            'filter' => 'image',    // фильтр файлов, можно задать массив фильтров https://github.com/Studio-42/elFinder/wiki/Client-configuration-options#wiki-onlyMimes
+            'template' => '<div class="input-group">{input}<span class="input-group-btn">{button}</span></div>',
+            'options' => ['class' => 'form-control'],
+            'buttonOptions' => ['class' => 'btn btn-default'],
+            'multiple' => false       // возможность выбора нескольких файлов
+        ]);
+        ?>
+    </div>
+    <div style="padding-top: 13px">
+
+        <button class="btn-success  btn-num-green" id="btn-num-green10" type="button">
+            10
+        </button>&nbsp;
         Полный текст рецепта:
-            <!--<textarea name="Recipe[article]" id="article">
 
-            </textarea>
-            <script>
-                CKEDITOR.replace( 'article', {
-
-                    language: 'ru',
-                    height: 1000,/*
-                    uiColor: '#59b45c'
-
-                             */
-                } );
-            </script>
--->
-        <?= $form->field($model, 'article')->widget(CKEditor::className(),[
-            'editorOptions' => ElFinder::ckeditorOptions('elfinder',[
-            'preset' => 'basic', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
-            'inline' => false, //по умолчанию false
-                'height'=>500,
-        ]),
+        <div id="div2add_ing_but"></div>
+        <br>
+        <?= $form->field($model, 'article')->widget(CKEditor::className(), [
+            'editorOptions' => ElFinder::ckeditorOptions('elfinder', [
+                'preset' => 'basic', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+                'inline' => false, //по умолчанию false
+                'height' => 500,
+            ]),
         ]);
         ?>
     </div>

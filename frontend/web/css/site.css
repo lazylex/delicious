@@ -128,3 +128,12 @@ a.desc:after {
 .text-align-center {
     text-align: center;
 }
+
+.ing-name {
+    color: #0a6ebd;
+    background: yellow;
+}
+
+.margin5 {
+    margin: 5px;
+}

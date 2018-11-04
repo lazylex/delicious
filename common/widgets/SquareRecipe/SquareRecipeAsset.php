@@ -18,5 +18,7 @@ class SquareRecipeAsset extends AssetBundle
 
     public $js = ['js/srw.js'];
 
+    public $images = ['images/ratatui.png'];
+
     public $depends = ['yii\web\JqueryAsset'];
 }
