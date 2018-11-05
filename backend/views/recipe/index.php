@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = ' \\ ' . $this->title;
             //'annotation',
             //'article:ntext',
             //'category_id',
+            'verified',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

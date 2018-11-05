@@ -29,7 +29,7 @@ AppAsset::register($this);
     <?php $this->beginBody() ?>
 
     <div class="wrap">
-        <nav class="navbar navbar-expand-lg navbar-dark" style="background: forestgreen; box-shadow: 0 0 10px rgba(0,0,0,0.5);">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background: forestgreen; box-shadow: 0 0 10px rgba(0,0,0,0.5); height: 42px">
             <a class="navbar-brand" href="<?= Yii::$app->homeUrl ?>"><i class="glyphicon glyphicon-cutlery"></i><?= ' '.Yii::$app->name ?></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
                     aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,7 +66,7 @@ AppAsset::register($this);
                 </ul>
 
                 <div style="position: relative; width: 250px; margin-right: 15px">
-                <input class="mr-sm-2" style="width: 100%; padding: 5px" type="text" placeholder="Поиск" id="searchInput"
+                <input class="mr-sm-2" style="height: 35px; width: 100%; padding: 5px" type="text" placeholder="Поиск" id="searchInput"
                        onkeyup="
                        if(document.getElementById('searchInput').value.length<3)
                            document.getElementById('searchResult').style.display='none';
@@ -104,7 +104,7 @@ AppAsset::register($this);
 
                 <?php if (!Yii::$app->user->isGuest): ?>
                     <form class="form-inline my-2 my-lg-0" target="<?= \yii\helpers\Url::to(['/site/logout']) ?>">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit" formmethod="post"><i class="glyphicon glyphicon-log-out"></i> Выход
+                        <button class=" btn-success" type="submit" formmethod="post" style="height: 35px"><i class="glyphicon glyphicon-log-out"></i> Выход
                             (<?= Yii::$app->user->identity->username ?>)
                         </button>
                     </form>
@@ -112,7 +112,7 @@ AppAsset::register($this);
             </div>
         </nav>
 
-        <div class="col-12 col-lg-11" style=" margin: auto; margin-top: 60px">
+        <div class="col-12 col-lg-12" style=" margin: auto; margin-top: 60px">
             <?= Breadcrumbs::widget(
                     [
                             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

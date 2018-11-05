@@ -1,9 +1,9 @@
 .srw_main_div {
-    height: 350px;
-    width: 350px;
+    height: 300px;
+    width: 300px;
     border: rgb(34, 139, 34) solid 2px;
     border-radius: 4px;
-    margin-left: 50px;
+    margin-left: 30px;
     margin-bottom: 50px;
     display: inline-block;
     background: rgba(255, 255, 255, 0.8);
@@ -35,7 +35,7 @@ a.srw_a_header {
 .srw_img {
     /*float: left;*/
     width: 100%;
-    height: 100px;
+    height: 120px;
     border: none;
     object-fit: cover;
     background-position: 50% 50%;
@@ -46,7 +46,7 @@ a.srw_a_header {
 }
 
 .srw_dummy_div {
-    height: 100px;
+    height: 120px;
     width: 100%
 }
 
@@ -59,26 +59,26 @@ a.srw_a_header {
     border-top: green solid 1px;
     border-bottom: green solid 1px;
     padding: 0px 5px 2px 5px;
-    height: 80px;
+    height: 62px;
     background: rgba(255, 255, 255, 0.9);
     font-size: smaller;
 }
 
 .srw_annotation_full {
-    height: 292px;
+    height: 244px;
     font-size: medium;
 }
 
 .srw_ing_div {
     background: rgba(255,255,255,0.75);
     width: 100%;
-    height: 112px;
+    height: 62px;
     overflow:hidden;
 }
 
 .srw_ing_div_full {
     background: rgba(255,255,255,0.95);
-    height: 292px;
+    height: 244px;
 }
 
 .srw_table {
@@ -108,7 +108,7 @@ a.srw_a_header {
     background: forestgreen;
     color: white;
     border-radius: 3px;
-    font-size: small;
+    font-size: x-small;
     margin-right: 3px;
 }
 
@@ -119,5 +119,6 @@ a.srw_a_header {
     position: absolute;
     bottom: 0;
     width: 100%;
-    padding: 3px;
+    padding-left: 3px;
+    height: 28px;
 }
