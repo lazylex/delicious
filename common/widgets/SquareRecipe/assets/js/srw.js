@@ -19,5 +19,8 @@ $(document).ready(function () {
         $('#srw_ing_div_'+id).toggleClass('srw_ing_div_full');
         $('#srw_dummy_div_'+id).toggleClass('srw_invisible');
         $('#srw_annotation_'+id).toggleClass('srw_invisible');
+
+        $('#srw_hidden_ing_'+id).toggleClass('srw_invisible');
+        $('#srw_hidden_ing_full_'+id).toggleClass('srw_invisible');
     });
 });

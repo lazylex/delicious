@@ -1,7 +1,7 @@
 .srw_main_div {
     height: 300px;
     width: 300px;
-    border: rgb(34, 139, 34) solid 2px;
+    border: darkgreen solid 2px;
     border-radius: 4px;
     margin-left: 30px;
     margin-bottom: 50px;
@@ -14,7 +14,7 @@
 
 .srw_header {
     text-align: center;
-    background: forestgreen;
+    background: darkgreen;
     font-size: medium;
 }
 
@@ -35,7 +35,7 @@ a.srw_a_header {
 .srw_img {
     /*float: left;*/
     width: 100%;
-    height: 120px;
+    height: 90px;
     border: none;
     object-fit: cover;
     background-position: 50% 50%;
@@ -46,7 +46,7 @@ a.srw_a_header {
 }
 
 .srw_dummy_div {
-    height: 120px;
+    height: 90px;
     width: 100%
 }
 
@@ -70,9 +70,10 @@ a.srw_a_header {
 }
 
 .srw_ing_div {
-    background: rgba(255,255,255,0.75);
+    opacity: 0.95;
+    background: linear-gradient(to top, darkgray, rgba(255,255,255,0.9));
     width: 100%;
-    height: 62px;
+    height: 92px;
     overflow:hidden;
 }
 
@@ -105,11 +106,12 @@ a.srw_a_header {
 
 .srw_badge {
     padding: 3px;
-    background: forestgreen;
-    color: white;
+    background: lightgrey;
+    color: black;
     border-radius: 3px;
     font-size: x-small;
     margin-right: 3px;
+    border: 1px black solid;
 }
 
 .srw_footer {
@@ -121,4 +123,18 @@ a.srw_a_header {
     width: 100%;
     padding-left: 3px;
     height: 28px;
+}
+
+.srw_hidden_ing {
+    opacity: 0.7;
+    position:absolute;
+    right:0;
+    bottom:0;
+    color: white;
+    font-size: medium;
+    background: forestgreen;
+    border: 2px white solid;
+    border-radius: 10px;
+    margin-bottom: 11px;
+    margin-right: 3px;
 }

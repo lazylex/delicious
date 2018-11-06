@@ -44,7 +44,7 @@ class SquareRecipe extends Widget
         $this->annotation = $model->annotation;
         $this->ingredients = $model->ingredients0;
         $this->img_url = $model->img_url;
-        if (is_null($this->img_url))
+        if (is_null($this->img_url)||$this->img_url=='')
             $this->img_url = $bundle->baseUrl . '/images/ratatui.png';
         $unit = Unit::find()->all();
         foreach ($unit as $item) {
@@ -62,7 +62,7 @@ class SquareRecipe extends Widget
 
         echo "<div id='srw_dummy_div_{$this->id}' class='srw_dummy_div'></div>";
         echo "<div id='srw_annotation_{$this->id}' class='srw_annotation' >{$this->annotation}</div><div class='clearfix'></div>";
-        echo "<div id='srw_ing_div_{$this->id}' class='srw_ing_div'>";
+        echo "<div id='srw_ing_div_{$this->id}' class='srw_ing_div' style='position: absolute'>";
         //echo "name: {$this->name}, calories: {$this->calories}, calories per portion: {$this->calories_per_portion}, portions: {$this->portions}<br>";
         //Debug::display($this->ingredients);
         echo "<table class='srw_table' id='srw_table_{$this->id}'><thead><th>Название</th><th>Количество</th></thead>";
@@ -77,8 +77,15 @@ class SquareRecipe extends Widget
             echo "</tr>";
         }
         echo "</table>";
+        if (count($this->ingredients) > 3) {
+            $hidden_ing = ' + ' . (count($this->ingredients) - 3).' ';
+            echo "<span id='srw_hidden_ing_{$this->id}' class='srw_hidden_ing'>" . $hidden_ing . "</span>";
 
-
+        }
+        if (count($this->ingredients) > 10) {
+            $hidden_ing = ' + ' . (count($this->ingredients) - 10).' ';
+            echo "<span id='srw_hidden_ing_full_{$this->id}' class='srw_hidden_ing srw_invisible'>" . $hidden_ing . "</span>";
+        }
         echo "</div>";
         echo "<div class='srw_footer'>";
 
